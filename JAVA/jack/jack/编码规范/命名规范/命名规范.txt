@@ -1,0 +1,15 @@
+
+1.Service：
+	查询方法必须以find/query/get开头
+	保存方法必须以save,add开头
+	更新方法必须以update开头
+	删除方法吧必须以delete开头
+	查询是否存在必须以exist开头
+	
+2.Action
+	查询是否存在必须以exist开头
+	查询数据必须以find/query/get开头
+	保存方法必须以save开头
+	更新方法必须以update开头
+	删除方法必须以delete开头
+	跳转页面必须以jump开头
