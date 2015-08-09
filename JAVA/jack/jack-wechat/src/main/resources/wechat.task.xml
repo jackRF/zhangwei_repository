@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks>
+	<task>
+		<name>token</name>
+		<url><![CDATA[https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APP_ID&secret=APP_SECRET]]></url>
+		<work>com.jack.wechat.task.work.TokenWork</work>
+		<instance>single</instance>
+	</task>	
+	<!--获取创建二维码ticket-->
+	<task>
+		<name>QRCode</name>		
+		<url><![CDATA[https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN]]></url>
+		<work>cn.com.sinosoft.wechat.work.QRCodeWork</work>		
+	</task>
+</tasks>

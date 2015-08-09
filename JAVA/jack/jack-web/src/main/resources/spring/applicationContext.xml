@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName" default-lazy-init="true">
+	<description>张伟:应用系统相关配置,不应该将所有配置的混杂到一个配置文件中,应按照功能划分,分别引入配置文件.2015-03-20
+	</description>
+	<bean id="applicationConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:config/*.properties</value>
+			</list>
+		</property>
+	</bean>
+</beans>

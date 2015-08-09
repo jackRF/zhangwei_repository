@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!--Spring 配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/applicationContext.xml</param-value>
+	</context-param>	
+	<!--Spring ApplicationContext 载入 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 引入spring的拦截器观察下情况 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/wechat/*</url-pattern>
+	</filter-mapping>
+	<!--struts2 Filter-->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>		
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/wechat/*</url-pattern>
+	</filter-mapping>	
+	
+	<servlet>
+		<servlet-name>direct</servlet-name>
+		<servlet-class>com.jack.web.servlet.DirectServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>direct</servlet-name>
+		<url-pattern>/direct</url-pattern>
+	</servlet-mapping>
+	<!--struts2 Filter end-->
+	
+	<!-- 微信公众平台服务端 start -->
+	<!--
+	<servlet>
+		<servlet-name>AuthorFilter</servlet-name>
+		<servlet-class>com.jack.wechat.filter.AuthorFilter</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthorFilter</servlet-name>
+		<url-pattern>/wechatFilter</url-pattern>
+	</servlet-mapping>
+	-->
+	<!-- 微信公众平台服务端 end -->
+	
+	
+	
+	<!-- 出错页面定义 -->
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<error-code>500</error-code>
+		<location>/wechat/error/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/wechat/error/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/wechat/error/403.jsp</location>
+	</error-page>
+	<!-- 出错页面定义 end -->
+	<!--服务器标签配置-->
+	<jsp-config>
+		<!--Standard 标签-->
+		<taglib>
+			<taglib-uri>fmt</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/fmt.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>core</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/c.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>fn</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/fn.tld</taglib-location>
+		</taglib>		
+		<!--Standard 标签 end-->
+	</jsp-config>
+	<!--服务器标签配置end-->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

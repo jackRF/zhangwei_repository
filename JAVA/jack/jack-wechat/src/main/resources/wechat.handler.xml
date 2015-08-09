@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<handler>
+		<name>type_text</name>
+		<handlerClass>cn.com.sinosoft.wechat.handler.RecieveTxtHandler</handlerClass>
+		
+	</handler>
+	<handler>
+		<name>type_image</name>
+		<handlerClass>cn.com.sinosoft.wechat.handler.RecieveImgHandler</handlerClass>
+	</handler>
+	<handler>
+		<name>type_voice</name>
+		
+	</handler>
+	<handler>
+		<name>type_video</name>
+		
+	</handler>
+	<handler>
+		<name>type_news</name>		
+	</handler>
+	<handler>
+		<name>type_location</name>		
+	</handler>
+	<handler>
+		<name>type_link</name>		
+	</handler>
+	<handler>
+		<name>event_general</name>
+		<handlerClass>cn.com.sinosoft.wechat.handler.RecieveEventHandler</handlerClass>		
+	</handler>
+	
+	<handler>
+		<name>event_qrscene</name>
+		<handlerClass>cn.com.sinosoft.wechat.handler.RecieveEventHandler</handlerClass>
+	</handler>
+	
+	<handler>
+		<name>event_location</name>
+		<handlerClass>cn.com.sinosoft.wechat.handler.RecieveEventHandler</handlerClass>		
+	</handler>
+	<handler>
+		<name>event_menu</name>
+		<handlerClass>cn.com.sinosoft.wechat.handler.RecieveMenuEventHandler</handlerClass>
+	</handler>	
+	
+</handlers>
