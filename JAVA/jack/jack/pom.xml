@@ -34,7 +34,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>${clean_version}</version>
+				<version>${clean.version}</version>
 			</plugin>
 			<!-- compiler插件, 设定JDK版本 -->
 			<plugin>
@@ -100,4 +100,9 @@
 		</plugins>
 	</pluginManagement>
   </build>
+  <modules>
+  	<module>../jack-core</module>
+  	<module>../jack-direct</module>
+  	<module>../jack-web</module>
+  </modules>
 </project>
