@@ -1,224 +1,189 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.jack</groupId>
-  <artifactId>jack-web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  
-  <properties>
-  	<clean_version>2.4.1</clean_version>
-  	<compile_version>1.6</compile_version>
-  	<spring.version>3.1.1.RELEASE</spring.version>
-  	<struts2.version>2.3.16.1</struts2.version>
-  	<hibernate.version>3.5.4-Final</hibernate.version>
-  	<jetty.version>6.1.26</jetty.version>
-  	<junit.version>4.11</junit.version>
-  	<fastjson.version>1.2.2</fastjson.version>
-  </properties>
-  
-<dependencies>
-	<dependency>
-		<groupId>com.alibaba</groupId>
-		<artifactId>fastjson</artifactId>
-		<version>${fastjson.version}</version>
-	</dependency>
-	<dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
 		<groupId>com.jack</groupId>
-		<artifactId>jack-direct</artifactId>
+		<artifactId>jack</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-  	<!-- 开始spring依赖包 -->
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-core</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-beans</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-context</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-aop</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-tx</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-orm</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-expression</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-jdbc</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
-	<!--struts2插件-->
-	<dependency>
-		<groupId>org.apache.struts</groupId>
-		<artifactId>struts2-spring-plugin</artifactId>
-		<version>${struts2.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.struts</groupId>
-		<artifactId>struts2-json-plugin</artifactId>
-		<version>${struts2.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.struts</groupId>
-		<artifactId>struts2-convention-plugin</artifactId>
-		<version>${struts2.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.struts</groupId>
-		<artifactId>struts2-config-browser-plugin</artifactId>
-		<version>${struts2.version}</version>
-	</dependency>	
-	<!-- 结束Struts2依赖包 -->
-	<!-- 开始J2EE依赖包 -->
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>servlet-api</artifactId>
-		<version>2.5</version>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.2</version>
-	</dependency>
-	<dependency>
-		<groupId>taglibs</groupId>
-		<artifactId>standard</artifactId>
-		<version>1.1.2</version>
-	</dependency>
-	<!-- 结束J2EE依赖包 -->
-	
-	<dependency>
-		<groupId>commons-lang</groupId>
-		<artifactId>commons-lang</artifactId>
-		<version>2.6</version>
-	</dependency>
-	<dependency>
-		<groupId>dom4j</groupId>
-		<artifactId>dom4j</artifactId>
-		<version>1.6.1</version>
-		<exclusions>
-			<exclusion>
-				<artifactId>xml-apis</artifactId>
-				<groupId>xml-apis</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
+		<relativePath>../jack/pom.xml</relativePath>
+	</parent>
+	<artifactId>jack-web</artifactId>
+	<packaging>war</packaging>
+
+	<name>jack-web</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<clean_version>2.4.1</clean_version>
+		<compile_version>1.6</compile_version>
+		<spring.version>3.1.1.RELEASE</spring.version>
+		<struts2.version>2.3.16.1</struts2.version>
+		<hibernate.version>3.5.4-Final</hibernate.version>
+		<jetty.version>6.1.26</jetty.version>
+		<junit.version>4.11</junit.version>
+		<fastjson.version>1.2.2</fastjson.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jack</groupId>
+			<artifactId>jack-direct</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 开始spring依赖包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--struts2插件 -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-spring-plugin</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-convention-plugin</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-config-browser-plugin</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		<!-- 结束Struts2依赖包 -->
+		<!-- 开始J2EE依赖包 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<!-- 结束J2EE依赖包 -->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 
-	
-	<!--hibernate 依赖包 -->
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-core</artifactId>
-		<exclusions>
-			<exclusion>
-				<artifactId>xml-apis</artifactId>
-				<groupId>xml-apis</groupId>
-			</exclusion>
-		</exclusions>
-		<version>${hibernate.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-annotations</artifactId>
-		<version>${hibernate.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-ehcache</artifactId>
-		<version>${hibernate.version}</version>
-	</dependency>
-	<!--hibernate 依赖包end  -->
-	<dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  
-  <build>
-  	<finalName>MALL</finalName>
-  	<plugins>
-  		<!--jetty插件 -->
-  		<plugin>
-  			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>maven-jetty-plugin</artifactId>
-			<version>${jetty.version}</version>			
-			<configuration>
-				<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
-					<append>true</append>
-				</requestLog>
-				<scanIntervalSeconds>10</scanIntervalSeconds>
-				<scanTargets>
-					<scanTarget>src/main/java</scanTarget>
-					<scanTarget>src/main/webapp/WEB-INF</scanTarget>
-					<scanTarget>src/main/resources</scanTarget>
-				</scanTargets>
-				<scanTargetPatterns>
-					<scanTargetPattern>
-						<directory>src/main</directory>
-						<includes>
-							<include>**/*.java</include>
-							<include>**/*.properties</include>
-							<include>**/*.xml</include>
-						</includes>
-						<excludes>
-							<exclude>**/*.js</exclude>
-							<exclude>**/*.css</exclude>
-							<exclude>**/*.jsp</exclude>
-						</excludes>
-					</scanTargetPattern>
-				</scanTargetPatterns>
-				<connectors>
-					<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-						<port>8081</port>
-						<maxIdleTime>60000</maxIdleTime>
-					</connector>
-				</connectors>
-				<contextPath>/</contextPath>
-				<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
-				<scanIntervalSeconds>100000</scanIntervalSeconds>
-			</configuration>
-  		</plugin>
-  		<!-- compiler插件, 设定JDK版本 -->  		
-  		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>${compile_version}</source>
-				<target>${compile_version}</target>
-				<showWarnings>false</showWarnings>
-			</configuration>
-		</plugin>
-		<!-- clean插件 -->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-clean-plugin</artifactId>
-			<version>${clean_version}</version>
-		</plugin>
-  	</plugins>
-  </build>
+
+		<!--hibernate 依赖包 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<!--hibernate 依赖包end -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>MALL</finalName>
+		<plugins>
+			<!--jetty插件 -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+			</plugin>
+			<!-- compiler插件, 设定JDK版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<!-- clean插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
