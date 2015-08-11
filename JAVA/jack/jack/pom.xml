@@ -7,7 +7,7 @@
   
   <properties>
   	<clean.version>2.4.1</clean.version>
-  	<compile.version>1.6</compile.version>
+  	<compile.version>1.7</compile.version>
   	<spring.version>3.1.1.RELEASE</spring.version>
   	<struts2.version>2.3.16.1</struts2.version>
   	<hibernate.version>3.5.4-Final</hibernate.version>
@@ -30,6 +30,12 @@
   <build>
   	<pluginManagement>
 		<plugins>
+			<!-- clean插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${clean_version}</version>
+			</plugin>
 			<!-- compiler插件, 设定JDK版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -80,6 +86,15 @@
 							</excludes>
 						</scanTargetPattern>
 					</scanTargetPatterns>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8081</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+					<contextPath>/</contextPath>
+					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
+					<scanIntervalSeconds>100000</scanIntervalSeconds>
 				</configuration>
 			</plugin>
 		</plugins>
