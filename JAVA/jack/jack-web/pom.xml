@@ -150,11 +150,6 @@
 		<artifactId>hibernate-ehcache</artifactId>
 		<version>${hibernate.version}</version>
 	</dependency>
-	<dependency>
-		<groupId>com.sinosoft</groupId>
-		<artifactId>arch4</artifactId>
-		<version>4.2.7</version>
-	</dependency>
 	<!--hibernate 依赖包end  -->
 	<dependency>
       <groupId>junit</groupId>
