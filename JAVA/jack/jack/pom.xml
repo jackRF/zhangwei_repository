@@ -50,6 +50,7 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
+			<!--jetty插件-->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
