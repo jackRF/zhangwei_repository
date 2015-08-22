@@ -1,6 +1,13 @@
 package com.jack.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private String userName;
 	private String pwd;
@@ -29,4 +36,5 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 }

@@ -14,6 +14,9 @@ public class UserServiceImpl implements IUserService
 {
 	public User queryUser(Long id) {
 		User u=new User();
+		u.setId(207L);
+		u.setName("张伟");
+		u.setUserName("zhangwei");
 		return u;
 	}
 }
