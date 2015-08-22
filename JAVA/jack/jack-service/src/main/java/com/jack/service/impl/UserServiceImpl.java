@@ -9,7 +9,7 @@ import com.jack.service.IUserService;
  * Hello world!
  *
  */
-@Service("userService")
+@Service
 public class UserServiceImpl implements IUserService
 {
 	public User queryUser(Long id) {
