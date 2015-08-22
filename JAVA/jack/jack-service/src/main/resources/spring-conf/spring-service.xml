@@ -22,5 +22,5 @@
    <!-- 使用zookeeper注册中心暴露服务地址 -->    
    <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" subscribe="false" register=""></dubbo:registry>  
   <!-- 要暴露的服务接口 -->
-  	<dubbo:service interface="com.jack.service.IUserService" ref="userService"/>
+  	<dubbo:service interface="com.jack.service.IUserService" ref="userServiceImpl"/>
 </beans>
