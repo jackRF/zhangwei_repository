@@ -104,9 +104,9 @@
   	<module>../jack-core</module>
   	<module>../jack-direct</module>
   	<module>../jack-web</module>
-  	
-  	
-  	
   	<module>../jack-wechat</module>
+  	<module>../jack-entity</module>
+  	<module>../jack-service</module>
+  	<module>../jack-service-api</module>
   </modules>
 </project>
