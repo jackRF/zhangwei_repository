@@ -1,5 +1,8 @@
 package com.jack.web.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
@@ -31,7 +34,10 @@ public class HelloAction extends BaseAction {
 			@Result(name="fail",type="json")
 	})
 	public String test(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+		System.out.println(sdf.format(new Date()));
 		User u= userService.queryUser(1L);
+		System.out.println(sdf.format(new Date()));
 		if(u!=null){
 			System.out.println(u.getId());
 			System.out.println(u.getName());
