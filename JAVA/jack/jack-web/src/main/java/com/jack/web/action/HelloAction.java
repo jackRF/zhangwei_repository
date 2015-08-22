@@ -33,6 +33,9 @@ public class HelloAction extends BaseAction {
 	public String test(){
 		User u= userService.queryUser(1L);
 		if(u!=null){
+			System.out.println(u.getId());
+			System.out.println(u.getName());
+			System.out.println(u.getUserName());
 			System.out.println("dubbo userService ....success");
 			logger.info("dubbo userService ....success");
 		}
