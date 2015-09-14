@@ -32,4 +32,10 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="maxUploadSize" value="2048000" />
 	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<ref bean="myInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
