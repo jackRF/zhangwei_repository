@@ -19,7 +19,6 @@ public class EncryptUtilsTest {
 	}
 	@Test
 	public void sdfsf() {
-		// TODO Auto-generated method stub
 		int i=0xff;
 		byte b=-7;
 		System.out.println(b&i);
