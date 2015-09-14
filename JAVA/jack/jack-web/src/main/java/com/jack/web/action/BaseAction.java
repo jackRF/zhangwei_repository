@@ -24,17 +24,14 @@ public class BaseAction  extends ActionSupport implements SessionAware,ServletRe
 	protected HttpServletResponse response;
 	
 	public void setServletResponse(HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		this.response=response;
 	}
 
 	public void setServletRequest(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		this.request=request;
 	}
 
 	public void setSession(Map<String, Object> session) {
-		// TODO Auto-generated method stub
 		this.session=session;
 	}
 

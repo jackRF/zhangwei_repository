@@ -26,7 +26,6 @@ public class WechatContextFactory {
 			Carp.WEBROOT=servletContext.getResource("/").getPath();
 			
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Carp.getInstance().init(new WechatConfiguration());
