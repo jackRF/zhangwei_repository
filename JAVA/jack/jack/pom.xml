@@ -93,7 +93,7 @@
 						</connector>
 					</connectors>
 					<contextPath>/</contextPath>
-					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
+					<!-- <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml> -->
 					<scanIntervalSeconds>100000</scanIntervalSeconds>
 				</configuration>
 			</plugin>
@@ -104,5 +104,9 @@
   	<module>../jack-core</module>
   	<module>../jack-direct</module>
   	<module>../jack-web</module>
+  	<module>../jack-wechat</module>
+  	<module>../jack-entity</module>
+  	<module>../jack-service</module>
+  	<module>../jack-service-api</module>
   </modules>
 </project>

@@ -7,6 +7,12 @@
         <dependent-module archiveName="jack-direct-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jack-direct/jack-direct">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jack-service-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jack-service-api/jack-service-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jack-entity-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jack-entity/jack-entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="MALL"/>
         <property name="java-output-path" value="/jack-web/target/classes"/>
     </wb-module>
