@@ -15,10 +15,11 @@
 		<jetty.version>6.1.26</jetty.version>
 		<junit.version>4.11</junit.version>
 		<fastjson.version>1.2.2</fastjson.version>
+		<jack.version>0.0.1-SNAPSHOT</jack.version>
 	</properties>
 
 	<dependencyManagement>
-		<dependencies>
+		<dependencies>			
 			<!-- 开始spring依赖包 -->
 			<dependency>
 				<groupId>org.springframework</groupId>

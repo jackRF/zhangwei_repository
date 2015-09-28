@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+
 public class FileUtil {
 	/**
 	 * �����ļ�
@@ -63,6 +64,7 @@ public class FileUtil {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
+	
 	public static void copyFile(String srcFilePath,String destFilePath) throws FileNotFoundException, IOException{
 		copyFile(new File(srcFilePath),new File(destFilePath));
 	}
