@@ -19,7 +19,24 @@
 	</properties>
 
 	<dependencyManagement>
-		<dependencies>			
+		<dependencies>		
+			<!-- jack begin -->
+			<dependency>
+				<groupId>com.jack</groupId>
+				<artifactId>jack-core</artifactId>
+				<version>${jack.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jack</groupId>
+				<artifactId>jack-direct</artifactId>
+				<version>${jack.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jack</groupId>
+				<artifactId>jack-service-api</artifactId>
+				<version>${jack.version}</version>
+			</dependency>
+			<!-- jack end -->
 			<!-- 开始spring依赖包 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -82,7 +99,7 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<!-- 结束spring依赖包 -->
-			<!-- jdbc -->
+			<!-- jdbc begin -->
 			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>

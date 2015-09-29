@@ -29,7 +29,6 @@
 		<dependency>
 			<groupId>com.jack</groupId>
 			<artifactId>jack-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -39,12 +38,10 @@
 		<dependency>
 			<groupId>com.jack</groupId>
 			<artifactId>jack-direct</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jack</groupId>
 			<artifactId>jack-service-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- 开始spring依赖包 -->
 		<dependency>
@@ -201,7 +198,6 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
-			<version>2.5.3</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring</artifactId>

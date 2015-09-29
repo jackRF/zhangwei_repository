@@ -26,7 +26,6 @@
 		<dependency>
 			<groupId>com.jack</groupId>
 			<artifactId>jack-service-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

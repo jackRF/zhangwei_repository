@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.springframework.context.annotation.Role;
 import org.springframework.test.annotation.Rollback;
 
 import com.jack.entity.User2;
 import com.jack.test.AbstractTransactionalJunitTest;
 
 public class UserServiceTest extends AbstractTransactionalJunitTest {
+	@SuppressWarnings("deprecation")
 	private void insertUser(User2 user) {
 		Map<String,Object> argsMap=new HashMap<String,Object>();
 		argsMap.put("username", user.getUsername());
