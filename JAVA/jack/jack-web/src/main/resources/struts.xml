@@ -5,7 +5,7 @@
 <struts>
 	<!-- 启用开发模式 -->  
     <constant name="struts.devMode" value="true" />
-	<package name="JACK-STRUTS" namespace="/" extends="json-default,struts-default">
+	<package name="JACK-STRUTS" namespace="/jack" extends="json-default,struts-default">
 		
 	</package>
 	<!--设置Convention插件定位视图资源的根路径，默认为/WEB-INFO/content -->
