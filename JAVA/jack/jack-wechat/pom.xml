@@ -24,7 +24,6 @@
 	<dependency>
 		<groupId>com.jack</groupId>
 		<artifactId>jack-core</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
