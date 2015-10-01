@@ -30,4 +30,9 @@ public class HomeController {
 	public Object getUserData(){
 		return null;
 	}
+	@RequestMapping("userEdit.htm")
+	public String userEdit(){
+		System.out.println("userEdit()");
+		return "home/userEdit";
+	}
 }
