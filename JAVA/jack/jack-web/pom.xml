@@ -171,8 +171,14 @@
 			<artifactId>extdirectspring</artifactId>
 			<version>1.6.0</version>
 		</dependency>
-
-
+		<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+			</dependency>
+		<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+			</dependency>
 		<!--hibernate 依赖包 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

@@ -32,9 +32,23 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="maxUploadSize" value="2048000" />
 	</bean>
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/*"/>
+			<mvc:mapping path="/**"/>
 			<ref bean="myInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

@@ -11,12 +11,45 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	console.log('sdfsfsf');
-	
+	$("#userForm").validate({
+//		 onfocusout:false,
+		 onkeyup:false,
+		 
+		rules:{
+			name:{
+				required:true
+			},
+			username:{
+				required:true,
+			    remote:{
+			    	url:"common/validateField.json",
+			    	type:"POST",
+			    	dataType:"json",
+			    	data:{field:"username",
+			    		  value:function(){
+			    		return $("#userForm input[name='username']").val();
+			    	}}
+			    }
+			},
+			password:{
+				required:true
+			}
+		},
+		message:{
+			username:{
+				remote:"sfsdfdsfsf"
+			}
+		}
+	});
+	$("#operate").on("click",function(){
+		var flag=$("#userForm").valid();
+		console.log(flag);
+	});
 })
 </script>
 </head>
 <body>
-<form action="/userForm">
+<form id="userForm" action="userForm">
 	<div>
 		<span>姓名：</span>
 		<div><input type="text" name="name" /></div>
@@ -28,6 +61,10 @@ $(document).ready(function(){
 	<div>
 		<span>密码：</span>
 		<div><input type="password" name="password" /></div>
+	</div>
+	<div>
+		  
+		<input type="button" id="operate" value="保存" />
 	</div>
 </form>
 </body>

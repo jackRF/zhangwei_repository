@@ -14,20 +14,20 @@ public class MyInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("preHandle...");
-		if(handler!=null){
-			HandlerMethod han=(HandlerMethod)handler;
-			System.out.println(han.getBeanType().getName());
-			System.out.println(han.getMethod().getName());
-			System.out.println("handler Class:"+handler.getClass().getName());
-			if(han.getMethodAnnotation(ResponseBody.class)!=null){
-//				response.setStatus(403);
-				response.sendError(403);
-				return false;
-			}
-		}else{
-			System.out.println("handler is null");
-		}
+//		System.out.println("preHandle...");
+//		if(handler!=null){
+//			HandlerMethod han=(HandlerMethod)handler;
+//			System.out.println(han.getBeanType().getName());
+//			System.out.println(han.getMethod().getName());
+//			System.out.println("handler Class:"+handler.getClass().getName());
+//			if(han.getMethodAnnotation(ResponseBody.class)!=null){
+////				response.setStatus(403);
+//				response.sendError(403);
+//				return false;
+//			}
+//		}else{
+//			System.out.println("handler is null");
+//		}
 		return true;
 	}
 
