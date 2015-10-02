@@ -14,6 +14,7 @@ public class CRefreshListener implements ApplicationListener<ContextRefreshedEve
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		ApplicationContext context = (ApplicationContext) event.getSource();
+		
 		Map<String,Object> beans=event.getApplicationContext().getBeansWithAnnotation(Controller.class);
 		for(String key:beans.keySet()){
 			Class<?> handlerType = context.getType(key);
