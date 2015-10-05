@@ -1,19 +1,17 @@
 package com.jack.web.action;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.Namespaces;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jack.entity.User;
-import com.jack.service.IUserService;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import com.jack.entity.User;
+//import com.jack.service.IUserService;
 /**
  * 
  * @author Administrator
