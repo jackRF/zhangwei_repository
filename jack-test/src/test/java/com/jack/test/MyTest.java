@@ -13,6 +13,8 @@ public class MyTest {
 		System.out.println("queryData(1) return:i|"+i);
 		String s=queryData(2);
 		System.out.println("queryData(1) return:s|"+s);
+		String s2=queryPerson();
+		System.out.println("queryData(1) return:s2|"+s2);
 	}
 	@SuppressWarnings("unchecked")
 	private <R> R queryData(Integer type){
@@ -22,6 +24,8 @@ public class MyTest {
 			return (R)"sfsfs";
 		}
 		return null;
-		
+	}
+	private String  queryPerson(){
+		return queryData(2);
 	}
 }
