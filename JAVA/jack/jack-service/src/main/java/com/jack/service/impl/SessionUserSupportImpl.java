@@ -26,7 +26,7 @@ import com.jack.entity.User;
  */
 @Service
 @Scope("session")
-public class UserSupportServiceImpl extends AbstractUserSupportImpl{
+public class SessionUserSupportImpl extends AbstractUserSupportImpl{
 	
 	private User user;
 	

@@ -13,6 +13,6 @@ public abstract class AbstractUserSupportImpl implements ApplicationContextAware
 		this.applicationContext=applicationContext;
 	}
 	public boolean isSupport(User user,String role){
-		return applicationContext.getBean(UserSupportServiceImpl.class).isSupport(user, role);
+		return applicationContext.getBean(SessionUserSupportImpl.class).isSupport(user, role);
 	}
 }
