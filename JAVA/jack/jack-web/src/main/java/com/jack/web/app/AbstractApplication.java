@@ -21,7 +21,6 @@ import org.springframework.context.ApplicationEvent;
 
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
-import com.jack.web.intf.IBusinessCallBack;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -63,13 +62,11 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 
 	public boolean isSupport(IBusinessAction<S,A,B> businessAction) {
 		boolean supportFlag = false;
-		IBusiness<S,A,B> localBusiness = null;
 		for (IBusiness<S,A,B> business : businesses) {
 			if (business.isSupport(businessAction)) {
 				supportFlag = true;
-				localBusiness = business;
 				LOCAL_BUSINESS_ACTION.set(businessAction);
-				LOCAL_BUSINESS.set(localBusiness);
+				LOCAL_BUSINESS.set(business);
 				break;
 			}
 		}
