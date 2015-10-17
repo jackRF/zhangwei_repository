@@ -1,9 +1,10 @@
 package com.jack.web.app;
 
 import org.springframework.stereotype.Component;
-import com.jack.intf.business.ICTSBusiness;
+
+import com.jack.cts.intf.ICTSBusinessConstant;
 
 @Component
-public class CTSApplication extends Application implements ICTSBusiness,IActionType{
+public class CTSApplication extends Application implements ICTSBusinessConstant{
 
 }
