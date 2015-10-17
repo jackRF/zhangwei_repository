@@ -27,6 +27,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface BusinessAction {
-    int actionType();
+    int actionType()default 0;
     String businessType();
 }

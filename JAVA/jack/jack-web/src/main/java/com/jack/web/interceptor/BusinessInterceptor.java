@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +30,13 @@ public class BusinessInterceptor implements HandlerInterceptor {
 				if(namespace==null){
 					namespace=hm.getBeanType().getAnnotation(Namespace.class);
 				}
+				int actionType=businessAction.actionType();
+				if(actionType<CCSApplication.MODELANDVIEW||actionType>CCSApplication.EXPORT){
+					actionType=calculateActionType(hm.getReturnType().getParameterType()
+							,hm.getMethodAnnotation(ResponseBody.class)!=null
+							,hm.getMethodAnnotation(RequestMapping.class));
+				}
+				final int at=actionType;
 				final String ns=namespace!=null?namespace.value():"DEFAULT";
 				return application.isSupport(new ICCSBusinessAction(){
 
@@ -38,7 +47,7 @@ public class BusinessInterceptor implements HandlerInterceptor {
 
 					@Override
 					public Integer getActionType() {
-						return businessAction.actionType();
+						return at;
 					}
 
 					@Override
@@ -52,7 +61,23 @@ public class BusinessInterceptor implements HandlerInterceptor {
 		}
 		return true;
 	}
-
+	private int calculateActionType(Class<?> returnType,boolean hasResponseBody,RequestMapping requestMapping){
+		if(returnType==null){
+			return CCSApplication.EXPORT;
+		}
+		if(String.class.equals(returnType)&&!hasResponseBody){
+			return CCSApplication.MODELANDVIEW;
+		}
+		String[] mappings=requestMapping.value();
+		boolean queryFlag=false;
+		for(String mapping:mappings){
+			if(mapping!=null&&(mapping.contains("query")||mapping.contains("Query"))){
+				queryFlag=true;
+				break;
+			}
+		}
+		return queryFlag?CCSApplication.QUERY:CCSApplication.PROCESS;
+	}
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
