@@ -1,8 +1,5 @@
 package com.jack.web.interceptor;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 
-import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
@@ -91,27 +87,8 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 		}
 		return 0;
 	}
-
 	@Override
 	protected AbstractApplication<String, Integer, String> getApplication() {
 		return application;
-	}
-
-	@Override
-	protected boolean checkPermission(User user, IBusinessAction<String, Integer, String> businessAction) {
-		// TODO Auto-generated method stub
-		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
-	}
-
-	@Override
-	protected void sendError(int statusCode, HttpServletResponse response, User user,
-			IBusinessAction<String, Integer, String> businessAction) {
-		// TODO Auto-generated method stub
-		try {
-			response.sendError(statusCode);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

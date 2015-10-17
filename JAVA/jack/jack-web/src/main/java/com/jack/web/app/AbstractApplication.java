@@ -13,12 +13,16 @@ package com.jack.web.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 
+import com.jack.entity.User;
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 
@@ -59,8 +63,7 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 	public void publishEvent(ApplicationEvent event) {
 		applicationContext.publishEvent(event);
 	}
-
-	public boolean isSupport(IBusinessAction<S,A,B> businessAction) {
+	private boolean isSupport(IBusinessAction<S,A,B> businessAction) {
 		boolean supportFlag = false;
 		for (IBusiness<S,A,B> business : businesses) {
 			if (business.isSupport(businessAction)) {
@@ -70,7 +73,25 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 				break;
 			}
 		}
+		IBusiness.LAST_SUPPORT_RESULT.set(supportFlag);
 		return supportFlag;
+	}
+	public boolean isSupport(HttpServletRequest request,HttpServletResponse response,IBusinessAction<S,A,B> businessAction) {
+		User user =getSessionUser(request);
+		boolean isSuccess = true;
+		int sc=403;
+		if (isSupport(businessAction)) {// 检查系统是否实现此业务
+			isSuccess =checkPermission(user, businessAction);// 检查用户权限
+		} else {
+			sc=404;
+			isSuccess = false;
+		}
+		if (!isSuccess) {
+			initLocalBusiness(request, response,user,businessAction);
+		}else{
+			sendError(sc,response, user, businessAction);
+		}
+		return isSuccess;
 	}
 
 	public <R> R doBusiness(Object... params) {
@@ -89,5 +110,25 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 		R result = doBusiness(params);
 		return callBack.callBack(result);
 	}
+	public User getSessionUser(HttpServletRequest request){
+		return (User)request.getSession().getAttribute("user");
+	}
+	/**
+	 * 当出现错误时，发送错误信息或重定向到首页
+	 * @statusCode 状态码 404，不存在的资源，403，没有权限
+	 * @param response
+	 * @param user 根据用户发送信息
+	 * @param businessAction 根据业务发送信息
+	 */
+	public abstract void sendError(int statusCode,HttpServletResponse response, User user, IBusinessAction<S, A, B> businessAction);
 
+	public abstract void initLocalBusiness(HttpServletRequest request, HttpServletResponse response, User user,
+			IBusinessAction<S, A, B> businessAction);
+	/**
+	 * 检查用户权限
+	 * @param user 当前用户
+	 * @param businessAction
+	 * @return
+	 */
+	public abstract boolean checkPermission(User user,IBusinessAction<S, A, B> businessAction);
 }

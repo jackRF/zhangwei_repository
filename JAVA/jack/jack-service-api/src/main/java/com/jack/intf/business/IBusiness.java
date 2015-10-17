@@ -10,8 +10,8 @@
  */
 package com.jack.intf.business;
 
+import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.jack.intf.observer.ISupport;
 
 /**
@@ -26,6 +26,10 @@ import com.jack.intf.observer.ISupport;
  * @param <B> 具体业务类型
  */
 public interface IBusiness<S,A,B> extends ISupport<IBusinessAction<S, A, B>>{
+	/**
+	 * 业务信息
+	 */
+	final ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>(); 
     /**
      * 功能描述: <br>
      * 〈功能详细描述〉

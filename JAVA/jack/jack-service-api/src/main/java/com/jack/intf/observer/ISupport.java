@@ -30,4 +30,8 @@ public interface ISupport<T>{
      * @since [产品/模块版本](可选)
      */
    boolean isSupport(T supportKey);
+   /**
+    * 多个观察者时，循环遍历到isSupport(T supportKey)返回true时会中断循环，通过判断最后一个结果状态来判断是否有观察者支持
+    */
+   final ThreadLocal<Boolean> LAST_SUPPORT_RESULT=new ThreadLocal<Boolean>();
 }
