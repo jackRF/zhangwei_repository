@@ -21,6 +21,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- commons begin -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.1</version>
+			</dependency>
+			<!-- commons end -->
 			<!-- jack begin -->
 			<dependency>
 				<groupId>com.jack</groupId>
