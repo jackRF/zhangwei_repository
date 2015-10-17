@@ -8,7 +8,7 @@ import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 
 @Service
-public class CTSBusinessServiceImpl extends SupportCCSBusinessActionServiceImpl implements ICTSBusinessService{
+public class CTSBusinessServiceImpl extends AbstractBusinessSupportImpl<String,Integer,String> implements ICTSBusinessService{
 
 	@Override
 	public <R> R modelAndView(String businessType, Object... params) {

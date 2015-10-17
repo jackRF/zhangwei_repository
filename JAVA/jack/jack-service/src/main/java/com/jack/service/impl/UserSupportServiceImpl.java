@@ -7,10 +7,11 @@ import com.jack.entity.User;
 
 @Service
 @Scope("session")
-public class SupportUserServiceImpl {
+public class UserSupportServiceImpl extends AbstractUserSupportImpl{
 	
 	private User user;
 	
+	@Override
 	public boolean isSupport(User user,String role){
 		if(this.user==null){
 			this.user=user;
