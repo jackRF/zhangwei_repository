@@ -66,13 +66,13 @@ public class CCSApplication implements ApplicationContextAware, ICCSActionType {
 		}
 		int actionType = ccsBusinessAction.getActionType();
 		String businessType = ccsBusinessAction.getBusinessType();
-		if (MODELANDVIEW == actionType) {
+		if (ACTION_TYPE_MODELANDVIEW == actionType) {
 			result = ccsBusinessService.modelAndView(businessType, params);
-		} else if (QUERY == actionType) {
+		} else if (ACTION_TYPE_QUERY == actionType) {
 			result = ccsBusinessService.query(businessType, params);
-		} else if (PROCESS == actionType) {
+		} else if (ACTION_TYPE_PROCESS == actionType) {
 			result = ccsBusinessService.process(businessType, params);
-		} else if (EXPORT == actionType) {
+		} else if (ACTION_TYPE_EXPORT == actionType) {
 			result = ccsBusinessService.export(businessType, params);
 		} else {
 			throw new IllegalArgumentException("ActionType 配置错误");

@@ -31,7 +31,7 @@ public class BusinessInterceptor implements HandlerInterceptor {
 					namespace=hm.getBeanType().getAnnotation(Namespace.class);
 				}
 				int actionType=businessAction.actionType();
-				if(actionType<CCSApplication.MODELANDVIEW||actionType>CCSApplication.EXPORT){
+				if(actionType<CCSApplication.ACTION_TYPE_MODELANDVIEW||actionType>CCSApplication.ACTION_TYPE_EXPORT){
 					actionType=calculateActionType(hm.getReturnType().getParameterType()
 							,hm.getMethodAnnotation(ResponseBody.class)!=null
 							,hm.getMethodAnnotation(RequestMapping.class));
@@ -63,20 +63,24 @@ public class BusinessInterceptor implements HandlerInterceptor {
 	}
 	private int calculateActionType(Class<?> returnType,boolean hasResponseBody,RequestMapping requestMapping){
 		if(returnType==null){
-			return CCSApplication.EXPORT;
+			return CCSApplication.ACTION_TYPE_EXPORT;
 		}
-		if(String.class.equals(returnType)&&!hasResponseBody){
-			return CCSApplication.MODELANDVIEW;
-		}
-		String[] mappings=requestMapping.value();
-		boolean queryFlag=false;
-		for(String mapping:mappings){
-			if(mapping!=null&&(mapping.contains("query")||mapping.contains("Query"))){
-				queryFlag=true;
-				break;
+		if(!hasResponseBody){
+			if(String.class.equals(returnType)){
+				return CCSApplication.ACTION_TYPE_MODELANDVIEW;
 			}
+		}else{
+			String[] mappings=requestMapping.value();
+			boolean queryFlag=false;
+			for(String mapping:mappings){
+				if(mapping!=null&&(mapping.contains("query")||mapping.contains("Query"))){
+					queryFlag=true;
+					break;
+				}
+			}
+			return queryFlag?CCSApplication.ACTION_TYPE_QUERY:CCSApplication.ACTION_TYPE_PROCESS;
 		}
-		return queryFlag?CCSApplication.QUERY:CCSApplication.PROCESS;
+		return 0;
 	}
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
