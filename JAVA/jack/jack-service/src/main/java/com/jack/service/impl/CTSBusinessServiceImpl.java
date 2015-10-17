@@ -5,7 +5,7 @@ import org.springframework.ui.ModelMap;
 
 import com.jack.cts.service.ICTSBusinessService;
 import com.jack.entity.User;
-import com.jack.intf.business.ICCSBusinessAction;
+import com.jack.intf.business.IBusinessAction;
 
 @Service
 public class CTSBusinessServiceImpl extends SupportCCSBusinessActionServiceImpl implements ICTSBusinessService{
@@ -47,7 +47,7 @@ public class CTSBusinessServiceImpl extends SupportCCSBusinessActionServiceImpl 
 	}
 
 	@Override
-	public boolean isSupport(ICCSBusinessAction supportKey) {
+	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
 		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
 	}
 

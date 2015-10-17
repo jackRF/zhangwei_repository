@@ -12,6 +12,8 @@ package com.jack.intf.business;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jack.intf.observer.ISupport;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -20,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public interface IBusiness<B>{
+public interface IBusiness<S,A,B> extends ISupport<IBusinessAction<S, A, B>>{
     /**
      * 功能描述: <br>
      * 〈功能详细描述〉

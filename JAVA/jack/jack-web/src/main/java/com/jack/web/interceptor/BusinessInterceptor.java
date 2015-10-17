@@ -11,14 +11,14 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jack.intf.business.ICCSBusinessAction;
+import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
-import com.jack.web.app.CCSApplication;
+import com.jack.web.app.Application;
 @Component
 public class BusinessInterceptor implements HandlerInterceptor {
 	@Autowired
-	private CCSApplication application;
+	private Application application;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -31,14 +31,14 @@ public class BusinessInterceptor implements HandlerInterceptor {
 					namespace=hm.getBeanType().getAnnotation(Namespace.class);
 				}
 				int actionType=businessAction.actionType();
-				if(actionType<CCSApplication.ACTION_TYPE_MODELANDVIEW||actionType>CCSApplication.ACTION_TYPE_EXPORT){
+				if(actionType<Application.ACTION_TYPE_MODELANDVIEW||actionType>Application.ACTION_TYPE_EXPORT){
 					actionType=calculateActionType(hm.getReturnType().getParameterType()
 							,hm.getMethodAnnotation(ResponseBody.class)!=null
 							,hm.getMethodAnnotation(RequestMapping.class));
 				}
 				final int at=actionType;
 				final String ns=namespace!=null?namespace.value():"DEFAULT";
-				return application.isSupport(new ICCSBusinessAction(){
+				return application.isSupport(new IBusinessAction<String,Integer,String>(){
 
 					@Override
 					public String getNameSpace() {
@@ -63,11 +63,11 @@ public class BusinessInterceptor implements HandlerInterceptor {
 	}
 	private int calculateActionType(Class<?> returnType,boolean hasResponseBody,RequestMapping requestMapping){
 		if(returnType==null){
-			return CCSApplication.ACTION_TYPE_EXPORT;
+			return Application.ACTION_TYPE_EXPORT;
 		}
 		if(!hasResponseBody){
 			if(String.class.equals(returnType)){
-				return CCSApplication.ACTION_TYPE_MODELANDVIEW;
+				return Application.ACTION_TYPE_MODELANDVIEW;
 			}
 		}else{
 			String[] mappings=requestMapping.value();
@@ -78,7 +78,7 @@ public class BusinessInterceptor implements HandlerInterceptor {
 					break;
 				}
 			}
-			return queryFlag?CCSApplication.ACTION_TYPE_QUERY:CCSApplication.ACTION_TYPE_PROCESS;
+			return queryFlag?Application.ACTION_TYPE_QUERY:Application.ACTION_TYPE_PROCESS;
 		}
 		return 0;
 	}
