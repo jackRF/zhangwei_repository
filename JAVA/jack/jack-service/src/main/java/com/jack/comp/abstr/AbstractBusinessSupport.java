@@ -1,4 +1,4 @@
-package com.jack.abstr;
+package com.jack.comp.abstr;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.jack.intf.business.IBusinessAction;

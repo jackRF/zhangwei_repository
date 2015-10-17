@@ -8,12 +8,12 @@
  * <author>      <time>      <version>    <desc>
  * 修改人姓名             修改时间            版本号                  描述
  */
-package com.jack.service.impl;
+package com.jack.comp;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.jack.abstr.AbstractUserSupport;
+import com.jack.comp.abstr.AbstractUserSupport;
 import com.jack.entity.User;
 /**
  * 〈一句话功能简述〉<br> 
@@ -27,7 +27,7 @@ import com.jack.entity.User;
  */
 @Service
 @Scope("session")
-public class SessionUserSupportServiceImpl extends AbstractUserSupport{
+public class SessionUserSupport extends AbstractUserSupport{
 	
 	private User user;
 	

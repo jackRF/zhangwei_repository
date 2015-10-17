@@ -1,11 +1,11 @@
-package com.jack.abstr;
+package com.jack.comp.abstr;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import com.jack.comp.SessionUserSupport;
 import com.jack.entity.User;
-import com.jack.service.impl.SessionUserSupportServiceImpl;
 
 public abstract class AbstractUserSupport implements ApplicationContextAware{
 	private ApplicationContext applicationContext;
@@ -14,6 +14,6 @@ public abstract class AbstractUserSupport implements ApplicationContextAware{
 		this.applicationContext=applicationContext;
 	}
 	public boolean isSupport(User user,String role){
-		return applicationContext.getBean(SessionUserSupportServiceImpl.class).isSupport(user, role);
+		return applicationContext.getBean(SessionUserSupport.class).isSupport(user, role);
 	}
 }
