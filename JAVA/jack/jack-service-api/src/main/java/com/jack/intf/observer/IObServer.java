@@ -8,6 +8,6 @@ package com.jack.intf.observer;
  * @param <S>  Support 类型
  * @param <T>  Query 类型
  */
-public interface IObServer<S,T> extends ISupport<S>,IQuery<T>,IModelAndView<T>{
+public interface IObServer<S,T> extends ISupport<S>,IModelAndView<T>,IQuery<T>,IProcess<T>,IExport<T>{
 
 }

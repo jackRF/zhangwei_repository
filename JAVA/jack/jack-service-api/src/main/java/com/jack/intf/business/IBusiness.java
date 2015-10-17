@@ -8,7 +8,7 @@
  * <author>      <time>      <version>    <desc>
  * 修改人姓名             修改时间            版本号                  描述
  */
-package com.jack.service;
+package com.jack.intf.business;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public interface IBusinessService<B>{
+public interface IBusiness<B>{
     /**
      * 功能描述: <br>
      * 〈功能详细描述〉
