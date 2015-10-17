@@ -1,9 +1,9 @@
-package com.jack.service.impl;
+package com.jack.abstr;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.jack.intf.business.IBusinessAction;
 
-public abstract class AbstractBusinessSupportImpl<S,A,B>{
+public abstract class AbstractBusinessSupport<S,A,B>{
 	@SuppressWarnings("unchecked")
 	public boolean isSupport(IBusinessAction<S,A,B> businessAction,S nameSpace,B...businessTypes){
 		if(nameSpace.equals(businessAction.getNameSpace())){

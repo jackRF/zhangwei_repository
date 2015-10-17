@@ -3,12 +3,13 @@ package com.jack.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import com.jack.abstr.AbstractBusinessSupport;
 import com.jack.cts.service.ICTSBusinessService;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 
 @Service
-public class CTSBusinessServiceImpl extends AbstractBusinessSupportImpl<String,Integer,String> implements ICTSBusinessService{
+public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integer,String> implements ICTSBusinessService{
 
 	@Override
 	public <R> R modelAndView(String businessType, Object... params) {
