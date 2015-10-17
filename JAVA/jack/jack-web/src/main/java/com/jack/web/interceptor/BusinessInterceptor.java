@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 
+import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
@@ -64,7 +65,7 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 		};
 
 	}
-
+	
 	private int calculateActionType(Class<?> returnType, boolean hasResponseBody, RequestMapping requestMapping) {
 		if (returnType == null) {
 			return Application.ACTION_TYPE_EXPORT;
@@ -90,5 +91,11 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 	@Override
 	protected AbstractApplication<String, Integer, String> getApplication() {
 		return application;
+	}
+
+	@Override
+	protected boolean checkPermission(User user, IBusinessAction<String, Integer, String> businessAction) {
+		// TODO Auto-generated method stub
+		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
 	}
 }
