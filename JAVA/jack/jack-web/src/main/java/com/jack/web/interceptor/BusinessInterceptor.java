@@ -1,97 +1,94 @@
 package com.jack.web.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
+import com.jack.web.app.AbstractApplication;
 import com.jack.web.app.Application;
+
 @Component
-public class BusinessInterceptor implements HandlerInterceptor {
+public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Integer, String> {
 	@Autowired
 	private Application application;
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		if(handler!=null&&handler instanceof HandlerMethod){
-			HandlerMethod hm=(HandlerMethod)handler;
-			final BusinessAction businessAction=hm.getMethodAnnotation(BusinessAction.class);
-			if(businessAction!=null){
-				Namespace namespace=hm.getMethodAnnotation(Namespace.class);
-				if(namespace==null){
-					namespace=hm.getBeanType().getAnnotation(Namespace.class);
-				}
-				int actionType=businessAction.actionType();
-				if(actionType<Application.ACTION_TYPE_MODELANDVIEW||actionType>Application.ACTION_TYPE_EXPORT){
-					actionType=calculateActionType(hm.getReturnType().getParameterType()
-							,hm.getMethodAnnotation(ResponseBody.class)!=null
-							,hm.getMethodAnnotation(RequestMapping.class));
-				}
-				final int at=actionType;
-				final String ns=namespace!=null?namespace.value():"DEFAULT";
-				return application.isSupport(new IBusinessAction<String,Integer,String>(){
 
-					@Override
-					public String getNameSpace() {
-						return ns;
-					}
-
-					@Override
-					public Integer getActionType() {
-						return at;
-					}
-
-					@Override
-					public String getBusinessType() {
-						return businessAction.businessType();
-					}
-					
-				});
-			}
-			
-		}
-		return true;
+	private String getDefaultNameSpace() {
+		return Application.DEFAULT_NAMESPACE;
 	}
-	private int calculateActionType(Class<?> returnType,boolean hasResponseBody,RequestMapping requestMapping){
-		if(returnType==null){
+
+	private boolean isSupportActionType(int actionType) {
+		return ArrayUtils.contains(Application.SUPPORT_ACTION_TYPES, actionType);
+	}
+
+	@Override
+	protected IBusinessAction<String, Integer, String> getBusinessAction(HandlerMethod hm) {
+		BusinessAction businessAction = hm.getMethodAnnotation(BusinessAction.class);
+		if (businessAction == null) {
+			return null;
+		}
+		Namespace namespace = hm.getMethodAnnotation(Namespace.class);
+		if (namespace == null) {
+			namespace = hm.getBeanType().getAnnotation(Namespace.class);
+		}
+
+		final String ns = namespace != null ? namespace.value() : getDefaultNameSpace();
+		final int at = isSupportActionType(businessAction.actionType()) ? businessAction.actionType()
+				: calculateActionType(hm.getReturnType().getParameterType(),
+						hm.getMethodAnnotation(ResponseBody.class) != null,
+						hm.getMethodAnnotation(RequestMapping.class));
+		final String bt = businessAction.businessType();
+
+		return new IBusinessAction<String, Integer, String>() {
+
+			@Override
+			public String getNameSpace() {
+				return ns;
+			}
+
+			@Override
+			public Integer getActionType() {
+				return at;
+			}
+
+			@Override
+			public String getBusinessType() {
+				return bt;
+			}
+
+		};
+
+	}
+
+	private int calculateActionType(Class<?> returnType, boolean hasResponseBody, RequestMapping requestMapping) {
+		if (returnType == null) {
 			return Application.ACTION_TYPE_EXPORT;
 		}
-		if(!hasResponseBody){
-			if(String.class.equals(returnType)){
+		if (!hasResponseBody) {
+			if (String.class.equals(returnType)) {
 				return Application.ACTION_TYPE_MODELANDVIEW;
 			}
-		}else{
-			String[] mappings=requestMapping.value();
-			boolean queryFlag=false;
-			for(String mapping:mappings){
-				if(mapping!=null&&(mapping.contains("query")||mapping.contains("Query"))){
-					queryFlag=true;
+		} else {
+			String[] mappings = requestMapping.value();
+			boolean queryFlag = false;
+			for (String mapping : mappings) {
+				if (mapping != null && (mapping.contains("query") || mapping.contains("Query"))) {
+					queryFlag = true;
 					break;
 				}
 			}
-			return queryFlag?Application.ACTION_TYPE_QUERY:Application.ACTION_TYPE_PROCESS;
+			return queryFlag ? Application.ACTION_TYPE_QUERY : Application.ACTION_TYPE_PROCESS;
 		}
 		return 0;
 	}
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		
-	}
 
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		
+	protected AbstractApplication<String, Integer, String> getApplication() {
+		return application;
 	}
-
 }

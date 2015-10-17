@@ -2,7 +2,7 @@ package com.jack.web.app;
 
 import com.jack.intf.business.IBusiness;
 
-public class Application extends AbstractApplication<String,Integer,String> implements IActionType{
+public class Application extends AbstractApplication<String,Integer,String> implements IApplicationConstant{
 
 	@Override
 	protected <R> R doBusiness(IBusiness<String, Integer, String> business, Integer actionType, String businessType,Object... params) {
