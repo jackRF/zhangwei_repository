@@ -1,3 +1,13 @@
+/*
+ * Copyright (C), 2014-2015, 达信财富投资管理（上海）有限公司
+ * FileName: AbstractApplication.java
+ * Author:   zhangwei
+ * Date:     2015年10月16日 上午11:40:32
+ * Description: //模块目的、功能描述      
+ * History: //修改记录
+ * <author>      <time>      <version>    <desc>
+ * 修改人姓名             修改时间            版本号                  描述
+ */
 package com.jack.web.app;
 
 import java.util.ArrayList;
@@ -13,6 +23,17 @@ import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.intf.business.IBusinessCallBack;
 
+/**
+ * 〈一句话功能简述〉<br> 
+ * 〈功能详细描述〉
+ *
+ * @author zhangwei
+ * @see [相关类/方法]（可选）
+ * @since [产品/模块版本] （可选）
+ * @param <S> 业务命名空间
+ * @param <A> Action类型
+ * @param <B> 具体业务类型
+ */
 public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
 
 	protected final ThreadLocal<IBusinessAction<S,A,B>> LOCAL_BUSINESS_ACTION = new ThreadLocal<IBusinessAction<S,A,B>>();

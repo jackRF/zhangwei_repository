@@ -17,6 +17,9 @@ package com.jack.intf.business;
  * @author zhangwei
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
+ * @param <S> 业务命名空间
+ * @param <A> Action类型
+ * @param <B> 具体业务类型
  */
 public interface IBusinessAction<S,A,B> {
     S getNameSpace();
