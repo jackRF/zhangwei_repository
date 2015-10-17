@@ -21,7 +21,7 @@ import org.springframework.context.ApplicationEvent;
 
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
-import com.jack.intf.business.IBusinessCallBack;
+import com.jack.web.intf.IBusinessCallBack;
 
 /**
  * 〈一句话功能简述〉<br> 
