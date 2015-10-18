@@ -10,6 +10,9 @@
         <dependent-module archiveName="jack-direct-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jack-direct/jack-direct">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jack-service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jack-service/jack-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="jack-service-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jack-service-api/jack-service-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>

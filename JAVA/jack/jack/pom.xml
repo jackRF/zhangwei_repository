@@ -56,6 +56,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.jack</groupId>
+				<artifactId>jack-service</artifactId>
+				<version>${jack.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jack</groupId>
 				<artifactId>jack-service-api</artifactId>
 				<version>${jack.version}</version>
 			</dependency>

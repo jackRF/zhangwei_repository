@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.jack.entity.User;
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.service.IBusinessService;
-
+@Component
 public class CCSApplication extends AbstractApplication<String, Integer, String>implements IApplicationConstant {
 	@Autowired
 	private List<IBusinessService> businessServices=new ArrayList<IBusinessService>();

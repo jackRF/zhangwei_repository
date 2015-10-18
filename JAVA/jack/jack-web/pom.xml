@@ -41,6 +41,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.jack</groupId>
+			<artifactId>jack-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jack</groupId>
 			<artifactId>jack-service-api</artifactId>
 		</dependency>
 		<!-- 开始spring依赖包 -->
