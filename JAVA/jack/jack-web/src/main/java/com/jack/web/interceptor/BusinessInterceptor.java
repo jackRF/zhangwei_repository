@@ -1,6 +1,9 @@
 package com.jack.web.interceptor;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +14,6 @@ import org.springframework.web.method.HandlerMethod;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
-import com.jack.web.app.AbstractApplication;
 import com.jack.web.app.CCSApplication;
 
 @Component
@@ -87,8 +89,10 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 		}
 		return 0;
 	}
+
 	@Override
-	protected AbstractApplication<String, Integer, String> getApplication() {
-		return application;
+	protected boolean isSupport(HttpServletRequest request, HttpServletResponse response,
+			IBusinessAction<String, Integer, String> businessAction) {
+		return application.isSupport(request, response, businessAction);
 	}
 }

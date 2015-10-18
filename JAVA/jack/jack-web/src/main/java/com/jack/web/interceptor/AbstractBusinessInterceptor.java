@@ -7,8 +7,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jack.intf.business.IBusinessAction;
-import com.jack.web.app.AbstractApplication;
-
 
 public abstract class AbstractBusinessInterceptor<S, A, B> implements HandlerInterceptor {
 	@Override
@@ -18,14 +16,14 @@ public abstract class AbstractBusinessInterceptor<S, A, B> implements HandlerInt
 			HandlerMethod hm = (HandlerMethod) handler;
 			IBusinessAction<S, A, B> businessAction = getBusinessAction(hm);
 			if (businessAction != null) {
-				return getApplication().isSupport(request,response,businessAction);
+				return isSupport(request,response,businessAction);
 			}
 		}
 		return true;
 	}
 	
+	protected abstract boolean isSupport(HttpServletRequest request, HttpServletResponse response,IBusinessAction<S, A, B> businessAction);
 	
-	protected abstract AbstractApplication<S, A, B> getApplication();
 	protected abstract IBusinessAction<S, A, B> getBusinessAction(HandlerMethod hm);
 	
 	@Override
@@ -36,7 +34,6 @@ public abstract class AbstractBusinessInterceptor<S, A, B> implements HandlerInt
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-
 	}
 
 }
