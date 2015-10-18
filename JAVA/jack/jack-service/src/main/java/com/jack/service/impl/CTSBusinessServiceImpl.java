@@ -3,14 +3,14 @@ package com.jack.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
-import com.jack.comp.abstr.AbstractBusinessPublisher;
+import com.jack.comp.abstr.AbstractServicePublisher;
 import com.jack.cts.observer.service.IApproveService;
 import com.jack.cts.service.ICTSBusinessService;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 
 @Service
-public class CTSBusinessServiceImpl extends AbstractBusinessPublisher<String,Integer,String,User,Integer,IApproveService> implements ICTSBusinessService{
+public class CTSBusinessServiceImpl extends AbstractServicePublisher<User,Integer,IApproveService> implements ICTSBusinessService{
 
 	@Override
 	public <R> R modelAndView(String businessType, Object... params) {
