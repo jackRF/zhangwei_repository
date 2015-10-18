@@ -60,7 +60,7 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 		User user =getSessionUser(request);
 		boolean isSuccess = true;
 		int sc=403;
-		if (isSupport(businessAction)) {// 检查系统是否实现此业务
+		if (isSupport(null,businessAction,null)) {// 检查系统是否实现此业务
 			isSuccess =checkPermission(user, businessAction);// 检查用户权限
 		} else {
 			sc=404;
@@ -73,14 +73,14 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 		}
 		return isSuccess;
 	}
-	public <CB,R> CB doBusiness(IBusinessCallBack<R> callBack, Object... params) {
+	public <CB,R> CB doBusiness(ICallBack<R> callBack, Object... params) {
 		R result = doBusiness(params);
 		return callBack.callBack(result);
 	}
 	public User getSessionUser(HttpServletRequest request){
 		return (User)request.getSession().getAttribute("user");
 	}
-	protected abstract boolean isSupport(IBusinessAction<S,A,B> businessAction);
+	protected abstract <R> R isSupport(ICallBack<IBusiness<S,A,B>> callback,IBusinessAction<S,A,B> businessAction,R r);
 	protected abstract <R> R doBusiness(IBusiness<S,A,B> business,IBusinessAction<S,A,B> businessAction,Object... params);
 	public abstract <R> R doBusiness(Object...params);
 	/**

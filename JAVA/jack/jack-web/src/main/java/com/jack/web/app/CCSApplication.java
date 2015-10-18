@@ -20,22 +20,14 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 	@Autowired
 	private List<IBusinessService> businessServices=new ArrayList<IBusinessService>();
 	@Override
-	public <R> R doBusiness(Object... params){
-		IBusinessAction<String, Integer, String> businessAction=LOCAL_BUSINESS_ACTION.get();
-		boolean supportFlag=false;
-		R r=null;
-		for (IBusiness<String, Integer, String> business : businessServices) {
-			if (business.isSupport(businessAction)) {
-				supportFlag=true;
-				IBusiness.LAST_SUPPORT_RESULT.set(true);
-				r=doBusiness(business,businessAction, params);
-				break;
+	public <R> R doBusiness(final Object... params){
+		 final IBusinessAction<String, Integer, String> businessAction=LOCAL_BUSINESS_ACTION.get();
+		 return isSupport(new ICallBack<IBusiness<String,Integer,String>>() {
+			@Override
+			public <B> B callBack(IBusiness<String, Integer, String> business) {
+				return doBusiness(business,businessAction, params);
 			}
-		}
-		if(!supportFlag){
-			IBusiness.LAST_SUPPORT_RESULT.set(false);
-		}
-		return r;
+		}, businessAction,null);
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -69,6 +61,7 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		businessInfo.put("user", user);
 		businessInfo.put("businessAction", businessAction);
 		IBusiness.LOCAL_BUSINESS_INFO.set(businessInfo);
+		LOCAL_BUSINESS_ACTION.set(businessAction);
 	}
 
 	@Override
@@ -77,20 +70,28 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	protected boolean isSupport(IBusinessAction<String, Integer, String> businessAction) {
+	protected <R> R isSupport(ICallBack<IBusiness<String, Integer, String>> callback,IBusinessAction<String, Integer, String> businessAction,R r) {
 		boolean supportFlag = false;
 		for (IBusiness<String, Integer, String> business : businessServices) {
 			if (business.isSupport(businessAction)) {
 				supportFlag = true;
 				IBusiness.LAST_SUPPORT_RESULT.set(true);
-				LOCAL_BUSINESS_ACTION.set(businessAction);
+				if(callback!=null){
+					r=callback.callBack(business);
+				}else{
+					r=(R) Boolean.TRUE;
+				}
 				break;
 			}
 		}
 		if(!supportFlag){
 			IBusiness.LAST_SUPPORT_RESULT.set(false);
+			if(callback==null){
+				r=(R) Boolean.FALSE;
+			}
 		}
-		return supportFlag;
+		return r;
 	}
 }

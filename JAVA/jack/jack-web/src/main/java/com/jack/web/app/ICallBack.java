@@ -18,6 +18,6 @@ package com.jack.web.app;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-public interface IBusinessCallBack<R> {
+public interface ICallBack<R> {
     <B> B callBack(R result);
 }
