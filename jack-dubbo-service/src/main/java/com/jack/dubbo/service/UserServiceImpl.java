@@ -1,4 +1,4 @@
-package com.jack.service.impl;
+package com.jack.dubbo.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

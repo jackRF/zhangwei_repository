@@ -1,4 +1,4 @@
-package com.jack.service;
+package com.jack.test.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,8 +6,9 @@ import java.util.Map;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import com.jack.entity.User2;
 import com.jack.test.AbstractTransactionalJunitTest;
+import com.jack.test.entity.User2;
+
 
 public class UserServiceTest extends AbstractTransactionalJunitTest {
 	@SuppressWarnings("deprecation")

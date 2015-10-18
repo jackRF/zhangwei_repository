@@ -1,8 +1,8 @@
-package com.jack.app;
+package com.jack.dubbo.app;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class DubboProviderMain {
+public class DubboApp{
 	
 	public static void main(String[] args) throws Exception {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(

@@ -1,4 +1,4 @@
-package com.jack.entity;
+package com.jack.test.entity;
 
 public class User2 {
 	

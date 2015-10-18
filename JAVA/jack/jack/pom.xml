@@ -21,6 +21,21 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.13</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+				<version>1.9.13</version>
+			</dependency>
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>1.8.6</version>
+			</dependency>
 			<!-- commons begin -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -133,17 +148,8 @@
 				<artifactId>mybatis-spring</artifactId>
 				<version>1.2.2</version>
 			</dependency>
-			<!-- jdbc end -->
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
-				<version>1.9.13</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-core-asl</artifactId>
-				<version>1.9.13</version>
-			</dependency>
+			<!-- jdbc end -->			
+			<!-- dubbo begin -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>dubbo</artifactId>
@@ -156,16 +162,24 @@
 				</exclusions>
 			</dependency>
 			<dependency>
-				<groupId>org.quartz-scheduler</groupId>
-				<artifactId>quartz</artifactId>
-				<version>1.8.6</version>
-			</dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<!-- dubbo end -->
+		<!-- test begin -->	
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
+		<!-- test end -->	
 		</dependencies>
 	</dependencyManagement>
 
@@ -245,10 +259,11 @@
 	<modules>
 		<module>../jack-core</module>
 		<module>../jack-direct</module>
-		<module>../jack-web</module>
-		<module>../jack-wechat</module>
 		<module>../jack-entity</module>
 		<module>../jack-service</module>
 		<module>../jack-service-api</module>
+		<module>../jack-dubbo-service</module>
+		<module>../jack-wechat</module>
+		<module>../jack-web</module>
 	</modules>
 </project>
