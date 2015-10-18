@@ -11,7 +11,7 @@
 package com.jack.comp;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.jack.comp.abstr.AbstractUserSupport;
 import com.jack.entity.User;
@@ -25,7 +25,7 @@ import com.jack.entity.User;
  * @see [相关类/方法]（可选）
  * @since [产品/模块版本] （可选）
  */
-@Service
+@Component
 @Scope("session")
 public class SessionUserSupport extends AbstractUserSupport{
 	

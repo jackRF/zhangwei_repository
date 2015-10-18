@@ -1,8 +1,10 @@
 package com.jack.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.jack.comp.abstr.AbstractServiceObserver;
 import com.jack.cts.observer.service.IApproveService;
-
+@Service
 public class CSApproveServiceImpl extends AbstractServiceObserver<Integer> implements IApproveService{
 
 	public CSApproveServiceImpl() {
