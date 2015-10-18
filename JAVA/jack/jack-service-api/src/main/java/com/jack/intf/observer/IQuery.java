@@ -32,5 +32,5 @@ public interface IQuery<T>{
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    <P,R>  R query(T type,P param,R r);
+    <R,P>  R query(T type,P param,R r);
 }

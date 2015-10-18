@@ -34,5 +34,5 @@ public interface IProcess<T>{
      * @since [产品/模块版本](可选)
      */
 	@Transactional
-	<P,R>  R process(T type,P param,R r);
+	<R,P>  R process(T type,P param,R r);
 }

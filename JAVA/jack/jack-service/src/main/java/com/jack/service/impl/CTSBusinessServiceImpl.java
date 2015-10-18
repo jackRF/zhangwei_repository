@@ -58,27 +58,4 @@ public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integ
 		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
 	}
 
-	@Override
-	public <P, R> R emit(User user,Integer type,P param, R r) {
-		boolean isSupport=false;
-		for(IApproveService approveService:approveServices){
-			if(approveService.isSupport(user)){
-				Integer actionType=LOCAL_ACTION_TYPE.get();
-				if(ACTION_TYPE_MODELANDVIEW==actionType){
-					r=approveService.modelAndView(type, param);
-				}else if(ACTION_TYPE_QUERY==actionType){
-					r=approveService.query(actionType, param, r);
-				}else if(ACTION_TYPE_PROCESS==actionType){
-					r=approveService.process(actionType, param, r);
-				}else if(ACTION_TYPE_PROCESS==actionType){
-					r=approveService.process(actionType, param, r);
-				}
-				isSupport=true;
-				break;
-			}
-		}
-		LAST_SUPPORT_RESULT.set(isSupport);
-		return r;
-	}
-
 }

@@ -13,19 +13,19 @@ public class ZSApproveServiceImpl extends AbstractUserSupport implements IApprov
 	}
 
 	@Override
-	public <P, R> R query(Integer type, P param, R r) {
+	public <R,P> R query(Integer type, P param, R r) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <P, R> R process(Integer type, P param, R r) {
+	public <R,P> R process(Integer type, P param, R r) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <P, R> R export(Integer type, P param, R r) {
+	public <R,P> R export(Integer type, P param, R r) {
 		// TODO Auto-generated method stub
 		return null;
 	}

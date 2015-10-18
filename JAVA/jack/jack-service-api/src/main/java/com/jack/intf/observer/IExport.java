@@ -32,5 +32,5 @@ public interface IExport<T>{
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-	<P,R>  R export(T type,P param,R r);
+	<R,P>  R export(T type,P param,R r);
 }

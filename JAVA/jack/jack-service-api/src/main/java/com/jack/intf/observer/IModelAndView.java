@@ -30,8 +30,8 @@ public interface IModelAndView<T>{
      *
      * 
      * @param type 视图类型(不同的视图类型，model可以不同，model具体类型由service根据视图类型决定
-     * ,service实现上要根据视图类型把抽象的M强制转化为实际的类型)
-     * @param model
+     * ,service实现上要根据视图类型把抽象的P强制转化为实际的类型)
+     * @param param
      * @return 返回视图(如果没有“type”类型的视图返回首页 REDIRECT_INDEX或抛出异常 )
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)

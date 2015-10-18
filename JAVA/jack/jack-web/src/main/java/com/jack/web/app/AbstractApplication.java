@@ -10,14 +10,10 @@
  */
 package com.jack.web.app;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
@@ -25,8 +21,6 @@ import org.springframework.context.ApplicationEvent;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
-import com.jack.intf.observer.IEmitter;
-
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -38,14 +32,12 @@ import com.jack.intf.observer.IEmitter;
  * @param <A> Action类型
  * @param <B> 具体业务类型
  */
-public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessAction<S,A,B>,A>, ApplicationContextAware{
+public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
 
 	protected final ThreadLocal<IBusinessAction<S,A,B>> LOCAL_BUSINESS_ACTION = new ThreadLocal<IBusinessAction<S,A,B>>();
-	private final ThreadLocal<IBusiness<S,A,B>> LOCAL_BUSINESS = new ThreadLocal<IBusiness<S,A,B>>();
-
 	private ApplicationContext applicationContext;
-	@Autowired
-	private List<IBusiness<S,A,B>> businesses = new ArrayList<IBusiness<S,A,B>>();
+	
+	
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -64,31 +56,7 @@ public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessA
 	public void publishEvent(ApplicationEvent event) {
 		applicationContext.publishEvent(event);
 	}
-	@Override
-	public <P, R> R emit(IBusinessAction<S,A,B> businessAction, A type, P param, R r) {
-		for (IBusiness<S,A,B> business : businesses) {
-			if (business.isSupport(businessAction)) {
-				IBusiness.LAST_SUPPORT_RESULT.set(true);
-				r=doBusiness(business,businessAction, param);
-				break;
-			}
-		}
-		IBusiness.LAST_SUPPORT_RESULT.set(false);
-		return r;
-	}
-	private boolean isSupport(IBusinessAction<S,A,B> businessAction) {
-		boolean supportFlag = false;
-		for (IBusiness<S,A,B> business : businesses) {
-			if (business.isSupport(businessAction)) {
-				supportFlag = true;
-				LOCAL_BUSINESS_ACTION.set(businessAction);
-				LOCAL_BUSINESS.set(business);
-				break;
-			}
-		}
-		IBusiness.LAST_SUPPORT_RESULT.set(supportFlag);
-		return supportFlag;
-	}
+
 	public boolean isSupport(HttpServletRequest request,HttpServletResponse response,IBusinessAction<S,A,B> businessAction) {
 		User user =getSessionUser(request);
 		boolean isSuccess = true;
@@ -106,17 +74,6 @@ public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessA
 		}
 		return isSuccess;
 	}
-	@Deprecated
-	public <R> R doBusiness(Object... params) {
-		IBusinessAction<S,A,B> businessAction = LOCAL_BUSINESS_ACTION.get();
-		IBusiness<S,A,B> business= LOCAL_BUSINESS.get();
-		if (businessAction == null || business == null) {
-			return null;
-		}
-		return doBusiness(business, businessAction,params);
-	}
-	protected abstract <R> R doBusiness(IBusiness<S,A,B> business,IBusinessAction<S,A,B> businessAction,Object... params);
-
 	public <CB,R> CB doBusiness(IBusinessCallBack<R> callBack, Object... params) {
 		R result = doBusiness(params);
 		return callBack.callBack(result);
@@ -124,6 +81,9 @@ public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessA
 	public User getSessionUser(HttpServletRequest request){
 		return (User)request.getSession().getAttribute("user");
 	}
+	protected abstract boolean isSupport(IBusinessAction<S,A,B> businessAction);
+	protected abstract <R> R doBusiness(IBusiness<S,A,B> business,IBusinessAction<S,A,B> businessAction,Object... params);
+	public abstract <R> R doBusiness(Object...params);
 	/**
 	 * 当出现错误时，发送错误信息或重定向到首页
 	 * @statusCode 状态码 404，不存在的资源，403，没有权限

@@ -1,20 +1,37 @@
 package com.jack.web.app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.jack.entity.User;
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
+import com.jack.service.IBusinessService;
 
 public class Application extends AbstractApplication<String, Integer, String>implements IApplicationConstant {
+	@Autowired
+	private List<IBusinessService> businessServices=new ArrayList<IBusinessService>();
 	@Override
 	public <R> R doBusiness(Object... params){
-		return super.emit(LOCAL_BUSINESS_ACTION.get(), null, params, null);
+		IBusinessAction<String, Integer, String> businessAction=LOCAL_BUSINESS_ACTION.get();
+		R r=null;
+		for (IBusinessService businessService : businessServices) {
+			if (businessService.isSupport(businessAction)) {
+				IBusiness.LAST_SUPPORT_RESULT.set(true);
+				r=doBusiness(businessService,businessAction, params);
+				break;
+			}
+		}
+		IBusiness.LAST_SUPPORT_RESULT.set(false);
+		return r;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -69,8 +86,18 @@ public class Application extends AbstractApplication<String, Integer, String>imp
 		// TODO Auto-generated method stub
 		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
 	}
-
 	
-
-	
+	@Override
+	protected boolean isSupport(IBusinessAction<String, Integer, String> businessAction) {
+		boolean supportFlag = false;
+		for (IBusinessService business : businessServices) {
+			if (business.isSupport(businessAction)) {
+				supportFlag = true;
+				LOCAL_BUSINESS_ACTION.set(businessAction);
+				break;
+			}
+		}
+		IBusiness.LAST_SUPPORT_RESULT.set(supportFlag);
+		return supportFlag;
+	}
 }
