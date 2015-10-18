@@ -28,7 +28,7 @@ public interface IBusiness<S,A,B> extends ISupport<IBusinessAction<S, A, B>>{
 	/**
 	 * 业务信息
 	 */
-	final ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>(); 
+	ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>(); 
     
     /**
      * 

@@ -1,5 +1,9 @@
 package com.jack.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
@@ -11,7 +15,8 @@ import com.jack.intf.business.IBusinessAction;
 
 @Service
 public class CTSBusinessServiceImpl extends AbstractServicePublisher<User,Integer,IApproveService> implements ICTSBusinessService{
-
+	@Autowired
+	private List<IApproveService> observers=new ArrayList<IApproveService>();
 	@Override
 	public <R> R modelAndView(String businessType, Object... params) {
 		// TODO Auto-generated method stub
@@ -51,5 +56,11 @@ public class CTSBusinessServiceImpl extends AbstractServicePublisher<User,Intege
 	@Override
 	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
 		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
+	}
+
+	@Override
+	protected List<IApproveService> getObservers() {
+		// TODO Auto-generated method stub
+		return observers;
 	}
 }

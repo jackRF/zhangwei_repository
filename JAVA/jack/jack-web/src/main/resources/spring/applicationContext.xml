@@ -16,7 +16,7 @@
 	default-lazy-init="false">
 	<description>张伟:应用系统相关配置,不应该将所有配置的混杂到一个配置文件中,应按照功能划分,分别引入配置文件.2015-03-20
 	</description>
-	<context:component-scan base-package="com.jack.service;com.jack.comp"></context:component-scan>
+	<context:component-scan base-package="com.jack.service;com.jack.comp;com.jack.cts"></context:component-scan>
 	<dubbo:application name="dubbo_consumer"></dubbo:application>
 	<!-- 使用zookeeper注册中心暴露服务地址 -->
 	<dubbo:registry address="zookeeper://127.0.0.1:2181" check="false"></dubbo:registry>

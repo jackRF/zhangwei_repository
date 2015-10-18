@@ -1,8 +1,9 @@
 package com.jack.web.app;
 
+import com.jack.cts.intf.ICTSBusinessConstant;
 import com.jack.service.IServiceConstant;
 
-public interface IApplicationConstant extends IServiceConstant{
+public interface IApplicationConstant extends IServiceConstant,ICTSBusinessConstant{
 	/**
 	 * 默认业务命名空间
 	 */

@@ -33,5 +33,5 @@ public interface ISupport<T>{
    /**
     * 多个观察者时，循环遍历到isSupport(T supportKey)返回true时会中断循环，通过判断最后一个结果状态来判断是否有观察者支持
     */
-   final ThreadLocal<Boolean> LAST_SUPPORT_RESULT=new ThreadLocal<Boolean>();
+   ThreadLocal<Boolean> LAST_SUPPORT_RESULT=new ThreadLocal<Boolean>();
 }

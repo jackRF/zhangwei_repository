@@ -7,7 +7,7 @@ import com.jack.cts.observer.service.IApproveService;
 @Service
 public class ZSApproveServiceImpl extends AbstractServiceObserver<Integer> implements IApproveService {
 
-	protected ZSApproveServiceImpl() {
+	public ZSApproveServiceImpl() {
 		super("ZS");
 	}
 
