@@ -18,9 +18,13 @@ public class Application extends AbstractApplication<String, Integer, String>imp
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	protected <R> R doBusiness(IBusiness<String, Integer, String> business, Integer actionType, String businessType,
+	protected <R> R doBusiness(IBusiness<String, Integer, String> business, IBusinessAction<String, Integer, String> businessAction,
 			Object... params) {
+		
+		Integer actionType=businessAction.getActionType();
+		String businessType=businessAction.getBusinessType();
 		LOCAL_ACTION_TYPE.set(actionType);
+		
 		R result = null;
 		if (ACTION_TYPE_MODELANDVIEW == actionType) {
 			result = business.modelAndView(businessType, params);

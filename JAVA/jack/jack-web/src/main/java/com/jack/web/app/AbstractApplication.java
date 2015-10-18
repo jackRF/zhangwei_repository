@@ -69,7 +69,7 @@ public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessA
 		for (IBusiness<S,A,B> business : businesses) {
 			if (business.isSupport(businessAction)) {
 				IBusiness.LAST_SUPPORT_RESULT.set(true);
-				r=doBusiness(business, businessAction.getActionType(), businessAction.getBusinessType(), param);
+				r=doBusiness(business,businessAction, param);
 				break;
 			}
 		}
@@ -113,11 +113,9 @@ public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessA
 		if (businessAction == null || business == null) {
 			return null;
 		}
-		A actionType = businessAction.getActionType();
-		B businessType = businessAction.getBusinessType();
-		return doBusiness(business, actionType, businessType,params);
+		return doBusiness(business, businessAction,params);
 	}
-	protected abstract <R> R doBusiness(IBusiness<S,A,B> business,A actionType,B businessType,Object... params);
+	protected abstract <R> R doBusiness(IBusiness<S,A,B> business,IBusinessAction<S,A,B> businessAction,Object... params);
 
 	public <CB,R> CB doBusiness(IBusinessCallBack<R> callBack, Object... params) {
 		R result = doBusiness(params);
