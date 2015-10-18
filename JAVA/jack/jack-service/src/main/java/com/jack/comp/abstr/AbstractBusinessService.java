@@ -13,6 +13,7 @@ package com.jack.comp.abstr;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.jack.intf.business.IBusinessAction;
+import com.jack.service.IBusinessService;
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -24,12 +25,24 @@ import com.jack.intf.business.IBusinessAction;
  * @param <A> Action类型
  * @param <B> 具体业务类型
  */
-public abstract class AbstractBusinessSupport<S,A,B>{
-	@SuppressWarnings("unchecked")
-	public boolean isSupport(IBusinessAction<S,A,B> businessAction,S nameSpace,B...businessTypes){
+public abstract class AbstractBusinessService implements IBusinessService{
+	public boolean isSupport(IBusinessAction<String,Integer,String> businessAction,String nameSpace,String...businessTypes){
 		if(nameSpace.equals(businessAction.getNameSpace())){
 			return ArrayUtils.contains(businessTypes, businessAction.getBusinessType());
 		}
 		return false;
+	}
+	public <R> R route(Integer actionType, String businessType, Object... params) {
+		R r=null;
+		if(actionType.equals(ACTION_TYPE_MODELANDVIEW)){
+			r=modelAndView(businessType, params);
+		}else if(ACTION_TYPE_QUERY==actionType){
+			r=query(businessType, params);
+		}else if(ACTION_TYPE_PROCESS==actionType){
+			r=process(businessType, params);
+		}else if(ACTION_TYPE_EXPORT==actionType){
+			r=export(businessType, params);
+		}
+		return r;
 	}
 }

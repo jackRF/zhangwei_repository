@@ -52,19 +52,4 @@ public class CTSBusinessServiceImpl extends AbstractServicePublisher<User,Intege
 	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
 		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
 	}
-
-	@Override
-	public <R> R route(Integer actionType, String businessType, Object... params) {
-		R r=null;
-		if(ACTION_TYPE_MODELANDVIEW==actionType){
-			r=modelAndView(businessType, params);
-		}else if(ACTION_TYPE_QUERY==actionType){
-			r=query(businessType, params);
-		}else if(ACTION_TYPE_PROCESS==actionType){
-			r=process(businessType, params);
-		}else if(ACTION_TYPE_EXPORT==actionType){
-			r=export(businessType, params);
-		}
-		return r;
-	}
 }
