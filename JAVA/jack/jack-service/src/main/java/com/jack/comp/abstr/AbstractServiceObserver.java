@@ -16,7 +16,7 @@ public abstract class AbstractServiceObserver<T> extends AbstractUserSupport imp
 	}
 	@Override
 	public <R, P> R emit(T type, P param, R r) {
-		Integer actionType = LOCAL_ACTION_TYPE.get();
+		Integer actionType = LOCAL_BUSINESS_ACTION.get().getActionType();
 		if (ACTION_TYPE_MODELANDVIEW == actionType) {
 			r = this.modelAndView(type, param, r);
 		} else if (ACTION_TYPE_QUERY == actionType) {

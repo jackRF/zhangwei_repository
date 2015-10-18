@@ -34,7 +34,6 @@ import com.jack.intf.business.IBusinessAction;
  */
 public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
 
-	protected final ThreadLocal<IBusinessAction<S,A,B>> LOCAL_BUSINESS_ACTION = new ThreadLocal<IBusinessAction<S,A,B>>();
 	private ApplicationContext applicationContext;
 	
 	

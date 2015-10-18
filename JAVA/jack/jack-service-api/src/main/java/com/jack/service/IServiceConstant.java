@@ -1,7 +1,9 @@
 package com.jack.service;
 
+import com.jack.intf.business.IBusinessAction;
+
 public interface IServiceConstant {
-	final ThreadLocal<Integer> LOCAL_ACTION_TYPE=new ThreadLocal<Integer>();
+	ThreadLocal<IBusinessAction<String,Integer,String>> LOCAL_BUSINESS_ACTION=new ThreadLocal<IBusinessAction<String,Integer,String>>();
 	/**
 	 * Action类型-准备model获取试图
 	 */

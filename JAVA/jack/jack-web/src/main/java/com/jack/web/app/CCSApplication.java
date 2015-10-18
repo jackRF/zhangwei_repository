@@ -14,16 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
+import com.jack.service.IBusinessService;
 
 public class CCSApplication extends AbstractApplication<String, Integer, String>implements IApplicationConstant {
 	@Autowired
-	private List<IBusiness<String, Integer, String>> businesses=new ArrayList<IBusiness<String, Integer, String>>();
+	private List<IBusinessService> businessServices=new ArrayList<IBusinessService>();
 	@Override
 	public <R> R doBusiness(Object... params){
 		IBusinessAction<String, Integer, String> businessAction=LOCAL_BUSINESS_ACTION.get();
 		boolean supportFlag=false;
 		R r=null;
-		for (IBusiness<String, Integer, String> business : businesses) {
+		for (IBusiness<String, Integer, String> business : businessServices) {
 			if (business.isSupport(businessAction)) {
 				supportFlag=true;
 				IBusiness.LAST_SUPPORT_RESULT.set(true);
@@ -42,7 +43,6 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 			Object... params) {
 		Integer actionType=businessAction.getActionType();
 		String businessType=businessAction.getBusinessType();
-		LOCAL_ACTION_TYPE.set(actionType);
 		R result=business.route(actionType, businessType, params);
 		if(!Boolean.TRUE.equals(IBusiness.LAST_SUPPORT_RESULT.get())){
 			Map<String,Object> info=IBusiness.LOCAL_BUSINESS_INFO.get();
@@ -80,7 +80,7 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 	@Override
 	protected boolean isSupport(IBusinessAction<String, Integer, String> businessAction) {
 		boolean supportFlag = false;
-		for (IBusiness<String, Integer, String> business : businesses) {
+		for (IBusiness<String, Integer, String> business : businessServices) {
 			if (business.isSupport(businessAction)) {
 				supportFlag = true;
 				IBusiness.LAST_SUPPORT_RESULT.set(true);
