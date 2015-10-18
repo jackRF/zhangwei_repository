@@ -1,9 +1,9 @@
 package com.jack.service.impl;
 
-import com.jack.comp.abstr.AbstractObserver;
+import com.jack.comp.abstr.AbstractServiceObserver;
 import com.jack.cts.observer.service.IApproveService;
 
-public class ZSApproveServiceImpl extends AbstractObserver<Integer> implements IApproveService {
+public class ZSApproveServiceImpl extends AbstractServiceObserver<Integer> implements IApproveService {
 
 	protected ZSApproveServiceImpl() {
 		super("ZS");

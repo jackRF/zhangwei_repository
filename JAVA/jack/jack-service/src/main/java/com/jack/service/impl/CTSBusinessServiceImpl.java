@@ -1,23 +1,17 @@
 package com.jack.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
-import com.jack.comp.abstr.AbstractBusinessSupport;
+import com.jack.comp.abstr.AbstractBusinessPublisher;
 import com.jack.cts.observer.service.IApproveService;
 import com.jack.cts.service.ICTSBusinessService;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
-import com.jack.intf.observer.IPublish;
 
 @Service
-public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integer,String> implements ICTSBusinessService,IPublish<User, Integer>{
-	@Autowired
-	private List<IApproveService> approveServices=new ArrayList<IApproveService>();
+public class CTSBusinessServiceImpl extends AbstractBusinessPublisher<String,Integer,String,User,Integer,IApproveService> implements ICTSBusinessService{
+
 	@Override
 	public <R> R modelAndView(String businessType, Object... params) {
 		// TODO Auto-generated method stub
@@ -73,15 +67,4 @@ public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integ
 		}
 		return r;
 	}
-
-	@Override
-	public <R, P> R publish(User supportKey, Integer type, P param, R r) {
-		for(IApproveService approveService:approveServices){
-			if(approveService.isSupport(supportKey)){
-				r=approveService.emit(type, param, r);
-			}
-		}
-		return r;
-	}
-
 }

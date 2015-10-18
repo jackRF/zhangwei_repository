@@ -1,9 +1,9 @@
 package com.jack.service.impl;
 
-import com.jack.comp.abstr.AbstractObserver;
+import com.jack.comp.abstr.AbstractServiceObserver;
 import com.jack.cts.observer.service.IApproveService;
 
-public class CSApproveServiceImpl extends AbstractObserver<Integer> implements IApproveService{
+public class CSApproveServiceImpl extends AbstractServiceObserver<Integer> implements IApproveService{
 
 	public CSApproveServiceImpl() {
 		super("CS");
