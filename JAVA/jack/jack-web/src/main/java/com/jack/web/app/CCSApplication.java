@@ -29,20 +29,18 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 			}
 		}, businessAction,null);
 	}
-	@SuppressWarnings("unchecked")
-	@Override
-	protected <R> R doBusiness(IBusiness<String, Integer, String> business, IBusinessAction<String, Integer, String> businessAction,
+	private <R> R doBusiness(IBusiness<String, Integer, String> business, IBusinessAction<String, Integer, String> businessAction,
 			Object... params) {
 		Integer actionType=businessAction.getActionType();
 		String businessType=businessAction.getBusinessType();
 		R result=business.route(actionType, businessType, params);
 		if(!Boolean.TRUE.equals(IBusiness.LAST_SUPPORT_RESULT.get())){
 			Map<String,Object> info=IBusiness.LOCAL_BUSINESS_INFO.get();
-			sendError(403,(HttpServletResponse)info.get("response"),(User)info.get("user"),(IBusinessAction<String, Integer, String>)info.get("businessAction"));
+			sendError(403,(HttpServletResponse)info.get("response"),(User)info.get("user"),businessAction);
 		}
 		return result;
 	}
-
+	
 	@Override
 	public void sendError(int statusCode, HttpServletResponse response, User user,
 			IBusinessAction<String, Integer, String> businessAction) {

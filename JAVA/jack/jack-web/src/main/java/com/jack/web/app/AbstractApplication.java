@@ -35,8 +35,6 @@ import com.jack.intf.business.IBusinessAction;
 public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
 
 	private ApplicationContext applicationContext;
-	
-	
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -81,7 +79,6 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 		return (User)request.getSession().getAttribute("user");
 	}
 	protected abstract <R> R isSupport(ICallBack<IBusiness<S,A,B>> callback,IBusinessAction<S,A,B> businessAction,R r);
-	protected abstract <R> R doBusiness(IBusiness<S,A,B> business,IBusinessAction<S,A,B> businessAction,Object... params);
 	public abstract <R> R doBusiness(Object...params);
 	/**
 	 * 当出现错误时，发送错误信息或重定向到首页
