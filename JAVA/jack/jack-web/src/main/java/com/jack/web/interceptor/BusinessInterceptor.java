@@ -12,19 +12,19 @@ import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
 import com.jack.web.app.AbstractApplication;
-import com.jack.web.app.Application;
+import com.jack.web.app.CCSApplication;
 
 @Component
 public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Integer, String> {
 	@Autowired
-	private Application application;
+	private CCSApplication application;
 
 	private String getDefaultNameSpace() {
-		return Application.DEFAULT_NAMESPACE;
+		return CCSApplication.DEFAULT_NAMESPACE;
 	}
 
 	private boolean isSupportActionType(int actionType) {
-		return ArrayUtils.contains(Application.SUPPORT_ACTION_TYPES, actionType);
+		return ArrayUtils.contains(CCSApplication.SUPPORT_ACTION_TYPES, actionType);
 	}
 
 	@Override
@@ -68,11 +68,11 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 	
 	private int calculateActionType(Class<?> returnType, boolean hasResponseBody, RequestMapping requestMapping) {
 		if (returnType == null) {
-			return Application.ACTION_TYPE_EXPORT;
+			return CCSApplication.ACTION_TYPE_EXPORT;
 		}
 		if (!hasResponseBody) {
 			if (String.class.equals(returnType)) {
-				return Application.ACTION_TYPE_MODELANDVIEW;
+				return CCSApplication.ACTION_TYPE_MODELANDVIEW;
 			}
 		} else {
 			String[] mappings = requestMapping.value();
@@ -83,7 +83,7 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 					break;
 				}
 			}
-			return queryFlag ? Application.ACTION_TYPE_QUERY : Application.ACTION_TYPE_PROCESS;
+			return queryFlag ? CCSApplication.ACTION_TYPE_QUERY : CCSApplication.ACTION_TYPE_PROCESS;
 		}
 		return 0;
 	}

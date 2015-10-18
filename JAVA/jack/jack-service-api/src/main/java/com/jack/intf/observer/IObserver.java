@@ -1,5 +1,5 @@
 package com.jack.intf.observer;
 
-public interface IObserver<S> extends IModelAndView<Integer>,IQuery<Integer>,IProcess<Integer>,IExport<Integer>,ISupport<S> {
+public interface IObserver<S,T> extends IModelAndView<T>,IQuery<T>,IProcess<T>,IExport<T>,ISupport<S> {
 
 }

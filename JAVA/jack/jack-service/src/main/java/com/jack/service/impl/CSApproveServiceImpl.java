@@ -1,13 +1,16 @@
 package com.jack.service.impl;
 
-import com.jack.comp.abstr.AbstractUserSupport;
+import com.jack.comp.abstr.AbstractObserver;
 import com.jack.cts.observer.service.IApproveService;
-import com.jack.entity.User;
 
-public class CSApproveServiceImpl extends AbstractUserSupport implements IApproveService{
+public class CSApproveServiceImpl extends AbstractObserver<Integer> implements IApproveService{
+
+	public CSApproveServiceImpl() {
+		super("CS");
+	}
 
 	@Override
-	public <R,M> R modelAndView(Integer type, M model) {
+	public <R,P> R modelAndView(Integer type, P model,R r) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -30,8 +33,5 @@ public class CSApproveServiceImpl extends AbstractUserSupport implements IApprov
 		return null;
 	}
 
-	@Override
-	public boolean isSupport(User supportKey) {
-		return super.isSupport(supportKey, "CS");
-	}
+	
 }

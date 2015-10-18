@@ -12,9 +12,10 @@ import com.jack.cts.observer.service.IApproveService;
 import com.jack.cts.service.ICTSBusinessService;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
+import com.jack.intf.observer.IPublish;
 
 @Service
-public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integer,String> implements ICTSBusinessService{
+public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integer,String> implements ICTSBusinessService,IPublish<User, Integer>{
 	@Autowired
 	private List<IApproveService> approveServices=new ArrayList<IApproveService>();
 	@Override
@@ -56,6 +57,31 @@ public class CTSBusinessServiceImpl extends AbstractBusinessSupport<String,Integ
 	@Override
 	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
 		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
+	}
+
+	@Override
+	public <R> R route(Integer actionType, String businessType, Object... params) {
+		R r=null;
+		if(ACTION_TYPE_MODELANDVIEW==actionType){
+			r=modelAndView(businessType, params);
+		}else if(ACTION_TYPE_QUERY==actionType){
+			r=query(businessType, params);
+		}else if(ACTION_TYPE_PROCESS==actionType){
+			r=process(businessType, params);
+		}else if(ACTION_TYPE_EXPORT==actionType){
+			r=export(businessType, params);
+		}
+		return r;
+	}
+
+	@Override
+	public <R, P> R publish(User supportKey, Integer type, P param, R r) {
+		for(IApproveService approveService:approveServices){
+			if(approveService.isSupport(supportKey)){
+				r=approveService.emit(type, param, r);
+			}
+		}
+		return r;
 	}
 
 }

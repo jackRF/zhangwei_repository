@@ -11,7 +11,6 @@
 package com.jack.intf.business;
 
 import java.util.Map;
-import org.springframework.transaction.annotation.Transactional;
 import com.jack.intf.observer.ISupport;
 
 /**
@@ -30,46 +29,13 @@ public interface IBusiness<S,A,B> extends ISupport<IBusinessAction<S, A, B>>{
 	 * 业务信息
 	 */
 	final ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>(); 
-    /**
-     * 功能描述: <br>
-     * 〈功能详细描述〉
-     *
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-	<R> R modelAndView(B businessType,Object...params);
-     /**
-      * 
-      * 功能描述: <br>
-      * 〈功能详细描述〉
-      *
-      * @return
-      * @see [相关类/方法](可选)
-      * @since [产品/模块版本](可选)
-      */
-    <R> R query(B businessType,Object...params);
-    /**
-     * 
-     * 功能描述: <br>
-     * 〈功能详细描述〉
-     *
-     * @param params
-     * @return
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-    @Transactional
-    <R> R process(B businessType,Object...params);
-    /**
-     * 
-     * 功能描述: <br>
-     * 〈功能详细描述〉
-     *
-     * @param params
-     * @return
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
-     */
-    <R> R export(B businessType,Object...params);
     
+    /**
+     * 
+     * @param actionType  
+     * @param businessType
+     * @param params
+     * @return
+     */
+    <R> R route(A actionType,B businessType,Object...params);
 }
