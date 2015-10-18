@@ -25,6 +25,7 @@ import org.springframework.context.ApplicationEvent;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
+import com.jack.intf.observer.IEmitter;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -37,7 +38,7 @@ import com.jack.intf.business.IBusinessAction;
  * @param <A> Action类型
  * @param <B> 具体业务类型
  */
-public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
+public  abstract class AbstractApplication<S,A,B> implements IEmitter<IBusinessAction<S,A,B>,A>, ApplicationContextAware{
 
 	protected final ThreadLocal<IBusinessAction<S,A,B>> LOCAL_BUSINESS_ACTION = new ThreadLocal<IBusinessAction<S,A,B>>();
 	private final ThreadLocal<IBusiness<S,A,B>> LOCAL_BUSINESS = new ThreadLocal<IBusiness<S,A,B>>();
@@ -62,6 +63,18 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 
 	public void publishEvent(ApplicationEvent event) {
 		applicationContext.publishEvent(event);
+	}
+	@Override
+	public <P, R> R emit(IBusinessAction<S,A,B> businessAction, A type, P param, R r) {
+		for (IBusiness<S,A,B> business : businesses) {
+			if (business.isSupport(businessAction)) {
+				IBusiness.LAST_SUPPORT_RESULT.set(true);
+				r=doBusiness(business, businessAction.getActionType(), businessAction.getBusinessType(), param);
+				break;
+			}
+		}
+		IBusiness.LAST_SUPPORT_RESULT.set(false);
+		return r;
 	}
 	private boolean isSupport(IBusinessAction<S,A,B> businessAction) {
 		boolean supportFlag = false;
@@ -93,7 +106,7 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 		}
 		return isSuccess;
 	}
-
+	@Deprecated
 	public <R> R doBusiness(Object... params) {
 		IBusinessAction<S,A,B> businessAction = LOCAL_BUSINESS_ACTION.get();
 		IBusiness<S,A,B> business= LOCAL_BUSINESS.get();

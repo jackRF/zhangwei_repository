@@ -36,5 +36,5 @@ public interface IModelAndView<T>{
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    <M> String modelAndView(T type,M model);
+    <R,M> R modelAndView(T type,M model);
 }

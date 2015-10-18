@@ -12,11 +12,15 @@ import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 
 public class Application extends AbstractApplication<String, Integer, String>implements IApplicationConstant {
-
+	@Override
+	public <R> R doBusiness(Object... params){
+		return super.emit(LOCAL_BUSINESS_ACTION.get(), null, params, null);
+	}
 	@SuppressWarnings("unchecked")
 	@Override
 	protected <R> R doBusiness(IBusiness<String, Integer, String> business, Integer actionType, String businessType,
 			Object... params) {
+		LOCAL_ACTION_TYPE.set(actionType);
 		R result = null;
 		if (ACTION_TYPE_MODELANDVIEW == actionType) {
 			result = business.modelAndView(businessType, params);
@@ -61,4 +65,8 @@ public class Application extends AbstractApplication<String, Integer, String>imp
 		// TODO Auto-generated method stub
 		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
 	}
+
+	
+
+	
 }
