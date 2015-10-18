@@ -64,7 +64,7 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 			sc=404;
 			isSuccess = false;
 		}
-		if (!isSuccess) {
+		if (isSuccess) {
 			initLocalBusiness(request, response,user,businessAction);
 		}else{
 			sendError(sc,response, user, businessAction);

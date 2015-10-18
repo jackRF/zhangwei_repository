@@ -69,7 +69,8 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 	}
 	
 	private int calculateActionType(Class<?> returnType, boolean hasResponseBody, RequestMapping requestMapping) {
-		if (returnType == null) {
+		
+		if (returnType == null||void.class.equals(returnType)||Void.class.equals(returnType)) {
 			return CCSApplication.ACTION_TYPE_EXPORT;
 		}
 		if (!hasResponseBody) {

@@ -51,5 +51,9 @@
 			<mvc:mapping path="/**"/>
 			<ref bean="myInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<ref bean="businessInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>

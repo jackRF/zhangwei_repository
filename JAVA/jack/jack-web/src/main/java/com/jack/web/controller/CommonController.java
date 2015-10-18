@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jack.service.MyServiceImpl;
 import com.jack.service.SupportUserServiceImpl;
+import com.jack.web.annotation.BusinessAction;
+import com.jack.web.annotation.Namespace;
+import com.jack.web.app.CCSApplication;
 
 @Controller
+@Namespace("common")
 @RequestMapping("common")
 public class CommonController implements ApplicationContextAware {
 
@@ -21,7 +25,7 @@ public class CommonController implements ApplicationContextAware {
 //	private MyServiceImpl myService;
 //	@Autowired
 //	private SupportUserServiceImpl supportUserService;
-
+	@BusinessAction(businessType=CCSApplication.BT_VALIDATE_FIELD)
 	@RequestMapping(value = "validateField.json")
 	@ResponseBody
 	public boolean validateField(String field, String value) {
@@ -38,7 +42,23 @@ public class CommonController implements ApplicationContextAware {
 		}
 		return false;
 	}
+	@BusinessAction(businessType=CCSApplication.BT_QUERY_USER_LIST)
+	@RequestMapping(value = "queryUserList.json")
+	@ResponseBody
+	public boolean queryUser(){
+		return false;
+	}
+	@BusinessAction(businessType=CCSApplication.BT_EXPORTUSER)
+	@RequestMapping(value = "exportUser.json")
+	public void exportUser(){
+	}
+	@BusinessAction(businessType=CCSApplication.BT_MODELANDVIEW_USERLIST)
+	@RequestMapping(value = "userList.json")
+	public String userList(){
+		return "user_list";
+	}
 	private ApplicationContext applicationContext;
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext=applicationContext;
