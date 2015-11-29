@@ -20,10 +20,6 @@ package com.jack.intf.observer;
  */
 public interface IModelAndView<T>{
     /**
-     * 重定向到首页
-     */
-    String REDIRECT_INDEX="redirect:/index.htm";
-    /**
      * 
      * 功能描述: <br>
      * 根据视图类型 准备model和获取视图
