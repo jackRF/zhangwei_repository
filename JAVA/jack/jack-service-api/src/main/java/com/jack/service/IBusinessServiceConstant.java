@@ -23,4 +23,20 @@ public interface IBusinessServiceConstant {
 	 * Action类型-导出
 	 */
 	int ACTION_TYPE_EXPORT=4;
+	/**
+     * 重定向到首页
+     */
+    String REDIRECT_INDEX="redirect:/index.htm";
+    /**
+     * 重定向到无权限页
+     */
+    String REDIRECT_403="redirect:/403.htm";
+    /**
+     * 重定向到无资源页
+     */
+    String REDIRECT_404="redirect:/404.htm";
+    /**
+     * 重定向到服务器错误页
+     */
+    String REDIRECT_500="redirect:/500.htm";
 }
