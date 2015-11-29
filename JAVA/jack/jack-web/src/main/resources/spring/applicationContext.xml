@@ -17,12 +17,35 @@
 	<description>张伟:应用系统相关配置,不应该将所有配置的混杂到一个配置文件中,应按照功能划分,分别引入配置文件.2015-03-20
 	</description>
 	<context:component-scan base-package="com.jack.service;com.jack.comp;com.jack.cts"></context:component-scan>
+	<!--启动spring事物注解功能 -->
+	<tx:annotation-driven/>
+	<!-- 配置数据源 -->
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+	<!-- 配置事务管理器 -->
+	<!-- <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds" />
+	</bean> -->
 	<dubbo:application name="dubbo_consumer"></dubbo:application>
 	<!-- 使用zookeeper注册中心暴露服务地址 -->
-	<dubbo:registry address="zookeeper://127.0.0.1:2181" check="false"></dubbo:registry>
+	<dubbo:registry address="zookeeper://127.0.0.1:2181"
+		check="false"></dubbo:registry>
 	<!-- 要引用的服务 -->
-	<!-- <dubbo:reference interface="com.jack.service.IUserService" id="userServiceImpl"></dubbo:reference>
- -->
+	<!-- <dubbo:reference interface="com.jack.service.IUserService" id="userServiceImpl"></dubbo:reference> -->
 	<bean id="applicationConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">

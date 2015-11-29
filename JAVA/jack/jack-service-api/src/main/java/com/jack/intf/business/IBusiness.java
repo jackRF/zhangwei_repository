@@ -28,14 +28,5 @@ public interface IBusiness<S,A,B> extends ISupport<IBusinessAction<S, A, B>>{
 	/**
 	 * 业务信息
 	 */
-	ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>(); 
-    
-    /**
-     * 
-     * @param actionType  
-     * @param businessType
-     * @param params
-     * @return
-     */
-    <R> R route(A actionType,B businessType,Object...params);
+	ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>();
 }

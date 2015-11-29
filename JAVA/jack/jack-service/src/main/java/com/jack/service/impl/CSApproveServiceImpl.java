@@ -25,7 +25,6 @@ public class CSApproveServiceImpl extends AbstractServiceObserver<Integer> imple
 
 	@Override
 	public <R,P> R process(Integer type, P param, R r) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

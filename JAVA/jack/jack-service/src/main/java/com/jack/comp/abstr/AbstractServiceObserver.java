@@ -3,9 +3,9 @@ package com.jack.comp.abstr;
 import com.jack.entity.User;
 import com.jack.intf.observer.IEmitter;
 import com.jack.intf.observer.IObserver;
-import com.jack.service.IServiceConstant;
+import com.jack.service.IBusinessServiceConstant;
 
-public abstract class AbstractServiceObserver<T> extends AbstractUserSupport implements IObserver<User,T>,IEmitter<User, T>, IServiceConstant {
+public abstract class AbstractServiceObserver<T> extends AbstractUserSupport implements IObserver<User,T>,IEmitter<User, T>, IBusinessServiceConstant {
 	protected String role;
 	protected AbstractServiceObserver(String role) {
 		this.role=role;

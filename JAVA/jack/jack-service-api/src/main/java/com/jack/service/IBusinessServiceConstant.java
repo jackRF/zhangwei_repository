@@ -2,8 +2,11 @@ package com.jack.service;
 
 import com.jack.intf.business.IBusinessAction;
 
-public interface IServiceConstant {
+public interface IBusinessServiceConstant {
+	
 	ThreadLocal<IBusinessAction<String,Integer,String>> LOCAL_BUSINESS_ACTION=new ThreadLocal<IBusinessAction<String,Integer,String>>();
+	
+	String NS_DEFAULT="DEFAULT";
 	/**
 	 * Action类型-准备model获取试图
 	 */

@@ -4,5 +4,5 @@ com\jack\comp\abstr\AbstractServiceObserver.class
 com\jack\service\impl\CTSBusinessServiceImpl.class
 com\jack\service\impl\CSApproveServiceImpl.class
 com\jack\comp\abstr\AbstractUserSupport.class
-com\jack\comp\abstr\AbstractBusinessService.class
 com\jack\comp\abstr\AbstractServicePublisher.class
+com\jack\comp\abstr\AbstractBusinessService.class

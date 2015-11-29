@@ -226,7 +226,8 @@
 						<requestLog implementation="org.mortbay.jetty.NCSARequestLog">
 							<append>true</append>
 						</requestLog>
-						<scanIntervalSeconds>10</scanIntervalSeconds>
+						
+						
 						<scanTargets>
 							<scanTarget>src/main/java</scanTarget>
 							<scanTarget>src/main/webapp/WEB-INF</scanTarget>
@@ -253,6 +254,8 @@
 								<maxIdleTime>60000</maxIdleTime>
 							</connector>
 						</connectors>
+						<reload>automatic</reload>
+						<scanIntervalSeconds>3</scanIntervalSeconds>
 						<contextPath>/</contextPath>
 						<!-- <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml> -->
 						<scanIntervalSeconds>100000</scanIntervalSeconds>

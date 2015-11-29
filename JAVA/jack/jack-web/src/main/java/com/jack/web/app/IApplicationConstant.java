@@ -1,17 +1,14 @@
 package com.jack.web.app;
 
 import com.jack.cts.intf.ICTSBusinessConstant;
-import com.jack.service.IServiceConstant;
+import com.jack.service.IBusinessServiceConstant;
 
-public interface IApplicationConstant extends IServiceConstant,ICTSBusinessConstant{
+public interface IApplicationConstant extends IBusinessServiceConstant,ICTSBusinessConstant{
 	String BT_VALIDATE_FIELD="BT_VALIDATE_FIELD";
+	String BT_MV_USER_LIST="BT_MV_USER_LIST";
 	String BT_QUERY_USER_LIST="BT_QUERY_USER_LIST";
 	String BT_EXPORTUSER="BT_EXPORTUSER";
 	String BT_MODELANDVIEW_USERLIST="BT_MODELANDVIEW_USERLIST";
-	/**
-	 * 默认业务命名空间
-	 */
-	String DEFAULT_NAMESPACE="DEFAULT";
 	/**
 	 * Application 支持的操作的类型(ActionType),Business拦截器中用到
 	 */
