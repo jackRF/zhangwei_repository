@@ -5,9 +5,9 @@ import com.jack.intf.observer.IEmitter;
 import com.jack.intf.observer.IObserver;
 import com.jack.service.IBusinessServiceConstant;
 
-public abstract class AbstractServiceObserver<T> extends AbstractUserSupport implements IObserver<User,T>,IEmitter<User, T>, IBusinessServiceConstant {
+public abstract class AbstractObserverService<T> extends AbstractUserSupport implements IObserver<User,T>,IEmitter<User, T>, IBusinessServiceConstant {
 	protected String role;
-	protected AbstractServiceObserver(String role) {
+	protected AbstractObserverService(String role) {
 		this.role=role;
 	}
 	@Override

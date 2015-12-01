@@ -35,7 +35,7 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		Integer actionType=businessAction.getActionType();
 		String businessType=businessAction.getBusinessType();
 		R result=route(business,actionType, businessType, params);
-		Map<String,Object> info=IBusiness.LOCAL_BUSINESS_INFO.get();
+		Map<String,Object> info=LOCAL_BUSINESS_INFO.get();
 		if(!Boolean.TRUE.equals(IBusiness.LAST_SUPPORT_RESULT.get())){
 			reportError(403,businessAction,info);
 		}else if(info.get("errorCode")!=null){
@@ -79,7 +79,7 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		businessInfo.put("response", response);
 		businessInfo.put("user", user);
 		businessInfo.put("businessAction", businessAction);
-		IBusiness.LOCAL_BUSINESS_INFO.set(businessInfo);
+		LOCAL_BUSINESS_INFO.set(businessInfo);
 		LOCAL_BUSINESS_ACTION.set(businessAction);
 	}
 

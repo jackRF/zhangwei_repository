@@ -1,22 +1,24 @@
 package com.jack.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
-import com.jack.comp.abstr.AbstractServicePublisher;
-import com.jack.cts.observer.service.IApproveService;
-import com.jack.cts.service.ICTSBusinessService;
+import com.jack.comp.abstr.AbstractBusinessService;
+import com.jack.cts.intf.ICTSBusinessConstant;
+import com.jack.cts.publisher.service.IApprovePublisherService;
 import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 
 @Service
-public class CTSBusinessServiceImpl extends AbstractServicePublisher<User,Integer,IApproveService> implements ICTSBusinessService{
+public class CTSBusinessServiceImpl extends AbstractBusinessService implements ICTSBusinessConstant{
 	@Autowired
-	private List<IApproveService> observers=new ArrayList<IApproveService>();
+	private IApprovePublisherService approvePublisherService;
+	@Override
+	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
+		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
+	}
+	
 	@Override
 	public <R> R modelAndView(String businessType, Object... params) {
 		// TODO Auto-generated method stub
@@ -31,36 +33,21 @@ public class CTSBusinessServiceImpl extends AbstractServicePublisher<User,Intege
 
 	@Override
 	public <R> R process(String businessType, Object... params) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public <R> R export(String businessType, Object... params) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String doListModelAndView(User user, Integer type, ModelMap model) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String doDetailModelAndView(User user, Integer type, ModelMap model) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
-		return super.isSupport(supportKey,NS_CTS, BT_MV_LOANAPPLY_LIST,BT_MV_LOANAPPLY_DETAIL);
-	}
-
-	@Override
-	protected List<IApproveService> getObservers() {
-		// TODO Auto-generated method stub
-		return observers;
-	}
+	
 }

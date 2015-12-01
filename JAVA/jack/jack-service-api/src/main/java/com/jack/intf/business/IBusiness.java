@@ -25,8 +25,5 @@ import com.jack.intf.observer.ISupport;
  * @param <B> 具体业务类型
  */
 public interface IBusiness<S,A,B> extends ISupport<IBusinessAction<S, A, B>>{
-	/**
-	 * 业务信息
-	 */
-	ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>();
+	
 }

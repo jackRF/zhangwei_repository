@@ -1,14 +1,14 @@
-package com.jack.service.impl;
+package com.jack.observer.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.jack.comp.abstr.AbstractServiceObserver;
-import com.jack.cts.observer.service.IApproveService;
+import com.jack.comp.abstr.AbstractObserverService;
+import com.jack.cts.observer.service.IApproveObserverService;
 @Service
-public class ZSApproveServiceImpl extends AbstractServiceObserver<Integer> implements IApproveService {
+public class CSApproveServiceImpl extends AbstractObserverService<Integer> implements IApproveObserverService{
 
-	public ZSApproveServiceImpl() {
-		super("ZS");
+	public CSApproveServiceImpl() {
+		super("CS");
 	}
 
 	@Override
@@ -25,12 +25,14 @@ public class ZSApproveServiceImpl extends AbstractServiceObserver<Integer> imple
 
 	@Override
 	public <R,P> R process(Integer type, P param, R r) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public <R,P> R export(Integer type, P param, R r) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }

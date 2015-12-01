@@ -1,9 +1,14 @@
 package com.jack.service;
 
+import java.util.Map;
+
 import com.jack.intf.business.IBusinessAction;
 
 public interface IBusinessServiceConstant {
-	
+	/**
+	 * 业务信息
+	 */
+	ThreadLocal<Map<String,Object>> LOCAL_BUSINESS_INFO=new ThreadLocal<Map<String,Object>>();
 	ThreadLocal<IBusinessAction<String,Integer,String>> LOCAL_BUSINESS_ACTION=new ThreadLocal<IBusinessAction<String,Integer,String>>();
 	
 	String NS_DEFAULT="DEFAULT";
