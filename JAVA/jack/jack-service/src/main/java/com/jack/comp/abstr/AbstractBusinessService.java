@@ -32,17 +32,4 @@ public abstract class AbstractBusinessService implements IBusinessService{
 		}
 		return false;
 	}
-	public <R> R route(Integer actionType, String businessType, Object... params) {
-		R r=null;
-		if(actionType.equals(ACTION_TYPE_MODELANDVIEW)){
-			r=modelAndView(businessType, params);
-		}else if(ACTION_TYPE_QUERY==actionType){
-			r=query(businessType, params);
-		}else if(ACTION_TYPE_PROCESS==actionType){
-			r=process(businessType, params);
-		}else if(ACTION_TYPE_EXPORT==actionType){
-			r=export(businessType, params);
-		}
-		return r;
-	}
 }

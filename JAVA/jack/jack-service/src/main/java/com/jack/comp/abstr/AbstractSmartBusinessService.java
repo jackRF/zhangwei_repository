@@ -28,7 +28,11 @@ public abstract class AbstractSmartBusinessService implements IBusinessService{
 			for(Method method:methods){
 				Business business=method.getAnnotation(Business.class);
 				if(business!=null){
-					handlerMethodMap.put(business.value(), method);
+					String[] values=business.value();
+					for(String value:values){
+						handlerMethodMap.put(value, method);
+					}
+					
 				}
 			}
 		}
@@ -41,32 +45,36 @@ public abstract class AbstractSmartBusinessService implements IBusinessService{
 		return false;
 	}
 	@Override
-	public <R> R modelAndView(String businessType, Object... params) {
-		return invoke(handlerMethodMap.get(businessType),params);
+	public final <R> R modelAndView(String businessType, Object... params) {
+		return invoke(businessType,params);
 	}
 
 	@Override
-	public <R> R query(String businessType, Object... params) {
-		return invoke(handlerMethodMap.get(businessType),params);
+	public final <R> R query(String businessType, Object... params) {
+		return invoke(businessType,params);
 	}
 	@Transactional
 	@Override
-	public <R> R process(String businessType, Object... params) {
-		return invoke(handlerMethodMap.get(businessType),params);
+	public final <R> R process(String businessType, Object... params) {
+		return invoke(businessType,params);
 	}
 
 	@Override
-	public <R> R export(String businessType, Object... params) {
-		return invoke(handlerMethodMap.get(businessType),params);
-	}
+	public final <R> R export(String businessType, Object... params) {
+		return invoke(businessType,params);
+	}	
 	@SuppressWarnings("unchecked")
-	private <R> R invoke(Method handlerMethod, Object...params){
+	private <R> R invoke(String businessType, Object...params){
 		try {
+			Method handlerMethod=handlerMethodMap.get(businessType);
 			ReflectionUtils.makeAccessible(handlerMethod);
 			return (R) handlerMethod.invoke(this, params);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
+	}
+	protected String getBusinessType(){
+		return LOCAL_BUSINESS_ACTION.get().getBusinessType();
 	}
 }
