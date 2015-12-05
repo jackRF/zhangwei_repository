@@ -15,7 +15,7 @@ import com.jack.entity.User;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.service.IBusinessService;
 @Component
-public class CCSApplication extends AbstractApplication<IBusinessAction<String, Integer, String>>{
+public class JackApplication extends AbstractApplication<IBusinessAction<String, Integer, String>>{
 	@Autowired
 	private List<IBusinessService> businessServices;
 	@Override

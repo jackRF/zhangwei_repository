@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
-import com.jack.web.app.CCSApplication;
+import com.jack.web.app.IApplication;
 
-@Namespace(CCSApplication.NS_CTS)
+@Namespace(IApplication.NS_CTS)
 @RequestMapping("creditAudit")
 @Controller
 public class CreditAuditController extends AbstractController {
 	
-	@BusinessAction(businessType=CCSApplication.BT_QUERY_LOANAPPLY_LIST)
+	@BusinessAction(businessType=IApplication.BT_QUERY_LOANAPPLY_LIST)
 	@ResponseBody
 	@RequestMapping("queryInfo.htm")
 	public Map<String,Object> queryInfo(Long loanApplyId){
