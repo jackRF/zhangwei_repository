@@ -1,12 +1,13 @@
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\comp\SessionUserSupport.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\comp\abstr\AbstractUserSupport.java
-E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\comp\abstr\AbstractObserverService.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\observer\service\impl\CSApproveServiceImpl.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\publisher\service\impl\ApprovePublisherServiceImpl.java
-E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\service\impl\CommonBusinessServiceImpl.java
+E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\comp\abstr\AbstractObserverService.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\service\impl\CTSBusinessServiceImpl.java
+E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\service\impl\CommonBusinessServiceImpl.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\annotation\Business.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\comp\abstr\AbstractBusinessService.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\observer\service\impl\ZSApproveServiceImpl.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\comp\abstr\AbstractPublisherService.java
 E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\annotation\NameSpace.java
+E:\Team\Git\jack\zhangwei_repository\JAVA\jack\jack-service\src\main\java\com\jack\service\impl\UserServiceImpl.java

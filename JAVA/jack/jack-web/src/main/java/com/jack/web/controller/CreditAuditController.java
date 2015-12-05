@@ -21,5 +21,11 @@ public class CreditAuditController extends AbstractController {
 	public Map<String,Object> queryInfo(Long loanApplyId){
 		return application.doBusiness(loanApplyId);
 	}
+	@BusinessAction(businessType=IApplication.BT_PROCESS_USER_SAVE)
+	@ResponseBody
+	@RequestMapping("saveUser.htm")
+	public Map<String,Object> saveUser(){
+		return application.doBusiness();
+	}
 	
 }

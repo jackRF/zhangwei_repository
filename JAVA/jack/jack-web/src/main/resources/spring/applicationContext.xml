@@ -35,11 +35,11 @@
 			<value>${jdbc.password}</value>
 		</property>
 	</bean>
-	<!-- 配置事务管理器 -->
-	<!-- <bean id="transactionManager"
+	<!-- 配置事务管理器  需要用事物必须要配置事务管理器-->
+	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="ds" />
-	</bean> -->
+	</bean>
 	<dubbo:application name="dubbo_consumer"></dubbo:application>
 	<!-- 使用zookeeper注册中心暴露服务地址 -->
 	<dubbo:registry address="zookeeper://127.0.0.1:2181"

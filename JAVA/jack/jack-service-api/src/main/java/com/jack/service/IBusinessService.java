@@ -1,7 +1,5 @@
 package com.jack.service;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.jack.intf.business.IBusinessAction;
 import com.jack.intf.observer.ISupport;
 
@@ -34,7 +32,6 @@ public interface IBusinessService extends IBusinessServiceConstant,ISupport<IBus
      * @see [相关类/方法](可选)
      * @since [产品/模块版本](可选)
      */
-    @Transactional
     <R> R process(String businessType,Object...params);
     /**
      * 

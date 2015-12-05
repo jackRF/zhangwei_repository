@@ -34,4 +34,9 @@ public interface ICTSBusinessConstant {
 	 * 信审借款列表查询
 	 */
 	String BT_QUERY_LOANAPPLY_LIST="QUERY_LOANAPPLY_LIST";
+	/**
+	 * 保存User
+	 */
+	String BT_PROCESS_USER_SAVE="PROCESS_USER_SAVE";
+	
 }
