@@ -21,7 +21,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 
 import com.jack.entity.User;
-import com.jack.intf.business.IBusinessAction;
 /**
  * 〈一句话功能简述〉<br> 
  * 〈功能详细描述〉
@@ -33,7 +32,7 @@ import com.jack.intf.business.IBusinessAction;
  * @param <A> Action类型
  * @param <B> 具体业务类型
  */
-public  abstract class AbstractApplication<BS,S,A,B> implements ApplicationContextAware{
+public  abstract class AbstractApplication<BA> implements IApplication<BA>,ApplicationContextAware{
 	
 	protected Logger logger=LoggerFactory.getLogger(getClass());
 	
@@ -56,12 +55,12 @@ public  abstract class AbstractApplication<BS,S,A,B> implements ApplicationConte
 	public void publishEvent(ApplicationEvent event) {
 		applicationContext.publishEvent(event);
 	}
-
-	public boolean isSupport(HttpServletRequest request,HttpServletResponse response,IBusinessAction<S,A,B> businessAction) {
+	@Override
+	public boolean isSupport(HttpServletRequest request,HttpServletResponse response,BA businessAction) {
 		User user =getSessionUser(request);
 		boolean isSuccess = true;
 		int sc=403;
-		if (isSupport(null,businessAction,null)) {// 检查系统是否实现此业务
+		if (isSupport(businessAction)) {// 检查系统是否实现此业务
 			isSuccess =checkPermission(user, businessAction);// 检查用户权限
 		} else {
 			sc=404;
@@ -74,25 +73,19 @@ public  abstract class AbstractApplication<BS,S,A,B> implements ApplicationConte
 		}
 		return isSuccess;
 	}
-	protected abstract IBusinessAction<S,A,B> getBusinessAction();
-	protected abstract <R> R isSupport(ICallBack<BS> callback,IBusinessAction<S,A,B> businessAction,R r);
-	protected abstract <R> R doBusiness(BS bs, IBusinessAction<S,A,B> businessAction,Object... params);
-	public <R> R doBusiness(final Object... params){
-		final IBusinessAction<S,A,B> businessAction=getBusinessAction();
-		 return isSupport(new ICallBack<BS>() {
-			@Override
-			public <R2> R2 callBack(BS bs) {
-				return doBusiness(bs,businessAction, params);
-			}
-		}, businessAction,null);
-	}
-	public <CB,R> CB doBusiness(ICallBack<R> callBack, Object... params) {
-		R result = doBusiness(params);
-		return callBack.callBack(result);
-	}
 	public User getSessionUser(HttpServletRequest request){
 		return (User)request.getSession().getAttribute("user");
 	}
+	protected abstract <R> R isSupport(BA businessAction);
+	/**
+	 * 检查用户权限
+	 * @param user 当前用户
+	 * @param businessAction
+	 * @return
+	 */
+	protected abstract boolean checkPermission(User user,BA businessAction);
+	protected abstract void initLocalBusiness(HttpServletRequest request, HttpServletResponse response, User user,
+			BA businessAction);
 	/**
 	 * 当出现错误时，发送错误信息或重定向到首页
 	 * @statusCode 状态码 404，不存在的资源，403，没有权限
@@ -100,15 +93,6 @@ public  abstract class AbstractApplication<BS,S,A,B> implements ApplicationConte
 	 * @param user 根据用户发送信息
 	 * @param businessAction 根据业务发送信息
 	 */
-	public abstract void sendError(int statusCode,HttpServletResponse response, User user, IBusinessAction<S, A, B> businessAction);
-
-	public abstract void initLocalBusiness(HttpServletRequest request, HttpServletResponse response, User user,
-			IBusinessAction<S, A, B> businessAction);
-	/**
-	 * 检查用户权限
-	 * @param user 当前用户
-	 * @param businessAction
-	 * @return
-	 */
-	public abstract boolean checkPermission(User user,IBusinessAction<S, A, B> businessAction);
+	protected abstract void sendError(int statusCode,HttpServletResponse response, User user, BA businessAction);
+	
 }

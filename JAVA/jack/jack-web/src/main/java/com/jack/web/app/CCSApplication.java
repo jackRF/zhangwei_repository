@@ -16,14 +16,25 @@ import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.service.IBusinessService;
 @Component
-public class CCSApplication extends AbstractApplication<IBusinessService,String, Integer, String>implements IApplicationConstant {
+public class CCSApplication extends AbstractApplication<IBusinessAction<String, Integer, String>>{
 	@Autowired
 	private List<IBusinessService> businessServices;
 	@Override
-	protected IBusinessAction<String, Integer, String> getBusinessAction() {
-		return LOCAL_BUSINESS_ACTION.get();
+	public <R> R doBusiness(final Object... params){
+		final IBusinessAction<String, Integer, String> businessAction=LOCAL_BUSINESS_ACTION.get();
+		 return isSupport(new ICallBack<IBusinessService>() {
+			@Override
+			public <R2> R2 callBack(IBusinessService businessService) {
+				return doBusiness(businessService,businessAction, params);
+			}
+		}, businessAction,null);
 	}
-	protected <R> R doBusiness(IBusinessService businessService, IBusinessAction<String, Integer, String> businessAction,
+	@Override
+	public <CB,R> CB doBusiness(ICallBack<R> callBack, Object... params) {
+		R result = doBusiness(params);
+		return callBack.callBack(result);
+	}
+	private <R> R doBusiness(IBusinessService businessService, IBusinessAction<String, Integer, String> businessAction,
 			Object... params) {
 		Integer actionType=businessAction.getActionType();
 		String businessType=businessAction.getBusinessType();
@@ -36,7 +47,6 @@ public class CCSApplication extends AbstractApplication<IBusinessService,String,
 		}
 		return result;
 	}
-	
 	private <R> R route(IBusinessService businessService, Integer actionType, String businessType,
 			Object[] params) {
 		if(ACTION_TYPE_MODELANDVIEW==actionType){
@@ -52,7 +62,7 @@ public class CCSApplication extends AbstractApplication<IBusinessService,String,
 	}
 	
 	@Override
-	public void initLocalBusiness(HttpServletRequest request, HttpServletResponse response, User user,
+	protected void initLocalBusiness(HttpServletRequest request, HttpServletResponse response, User user,
 			IBusinessAction<String, Integer, String> businessAction) {
 		Map<String,Object> businessInfo=new HashMap<String,Object>();
 		businessInfo.put("request", request);
@@ -62,9 +72,30 @@ public class CCSApplication extends AbstractApplication<IBusinessService,String,
 		LOCAL_BUSINESS_INFO.set(businessInfo);
 		LOCAL_BUSINESS_ACTION.set(businessAction);
 	}
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	protected <R> R isSupport(ICallBack<IBusinessService> callback,IBusinessAction<String, Integer, String> businessAction,R r) {
+	protected boolean checkPermission(User user, IBusinessAction<String, Integer, String> businessAction) {
+		// TODO Auto-generated method stub
+		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
+	}
+	private void reportError(int i, IBusinessAction<String, Integer, String> businessAction, Map<String, Object> businessInfo) {
+		
+	}
+	@Override
+	protected void sendError(int statusCode, HttpServletResponse response, User user,
+			IBusinessAction<String, Integer, String> businessAction) {
+		try {
+			response.sendError(statusCode);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@Override
+	protected <R> R isSupport(IBusinessAction<String, Integer, String> businessAction) {
+		return isSupport(null,businessAction,null);
+	}
+	@SuppressWarnings("unchecked")
+	private <R> R isSupport(ICallBack<IBusinessService> callback,IBusinessAction<String, Integer, String> businessAction,R r) {
 		boolean supportFlag = false;
 		for (IBusinessService businessService : businessServices) {
 			if (businessService.isSupport(businessAction)) {
@@ -85,22 +116,5 @@ public class CCSApplication extends AbstractApplication<IBusinessService,String,
 			}
 		}
 		return r;
-	}
-	@Override
-	public boolean checkPermission(User user, IBusinessAction<String, Integer, String> businessAction) {
-		// TODO Auto-generated method stub
-		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
-	}
-	private void reportError(int i, IBusinessAction<String, Integer, String> businessAction, Map<String, Object> businessInfo) {
-		
-	}
-	@Override
-	public void sendError(int statusCode, HttpServletResponse response, User user,
-			IBusinessAction<String, Integer, String> businessAction) {
-		try {
-			response.sendError(statusCode);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }

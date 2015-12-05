@@ -14,19 +14,19 @@ import org.springframework.web.method.HandlerMethod;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
-import com.jack.web.app.CCSApplication;
+import com.jack.web.app.IApplication;
 
 @Component
 public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Integer, String> {
 	@Autowired
-	private CCSApplication application;
+	private IApplication<IBusinessAction<String, Integer, String>> application;
 
 	private String getDefaultNameSpace() {
-		return CCSApplication.NS_DEFAULT;
+		return IApplication.NS_DEFAULT;
 	}
 
 	private boolean isSupportActionType(int actionType) {
-		return ArrayUtils.contains(CCSApplication.SUPPORT_ACTION_TYPES, actionType);
+		return ArrayUtils.contains(IApplication.SUPPORT_ACTION_TYPES, actionType);
 	}
 
 	@Override
@@ -44,13 +44,13 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 		int atTemp=businessAction.actionType();
 		if(!isSupportActionType(businessAction.actionType())){
 			if(bt.startsWith("MV_")){
-				atTemp=CCSApplication.ACTION_TYPE_MODELANDVIEW;
+				atTemp=IApplication.ACTION_TYPE_MODELANDVIEW;
 			}else if(bt.startsWith("QUERY_")){
-				atTemp=CCSApplication.ACTION_TYPE_QUERY;
+				atTemp=IApplication.ACTION_TYPE_QUERY;
 			}else if(bt.startsWith("PROCESS_")){
-				atTemp=CCSApplication.ACTION_TYPE_PROCESS;
+				atTemp=IApplication.ACTION_TYPE_PROCESS;
 			}else if(bt.startsWith("EXPORT_")){
-				atTemp=CCSApplication.ACTION_TYPE_EXPORT;
+				atTemp=IApplication.ACTION_TYPE_EXPORT;
 			}else{
 				atTemp=calculateActionType(hm.getReturnType().getParameterType(),
 						hm.getMethodAnnotation(ResponseBody.class) != null,
@@ -81,9 +81,9 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 	
 	private int calculateActionType(Class<?> returnType, boolean hasResponseBody, RequestMapping requestMapping) {
 		if (returnType == null||void.class.equals(returnType)||Void.class.equals(returnType)) {
-			return CCSApplication.ACTION_TYPE_EXPORT;
+			return IApplication.ACTION_TYPE_EXPORT;
 		}else if (!hasResponseBody) {
-			return CCSApplication.ACTION_TYPE_MODELANDVIEW;
+			return IApplication.ACTION_TYPE_MODELANDVIEW;
 		} else {
 			String[] mappings = requestMapping.value();
 			boolean queryFlag = false;
@@ -93,7 +93,7 @@ public class BusinessInterceptor extends AbstractBusinessInterceptor<String, Int
 					break;
 				}
 			}
-			return queryFlag ? CCSApplication.ACTION_TYPE_QUERY : CCSApplication.ACTION_TYPE_PROCESS;
+			return queryFlag ? IApplication.ACTION_TYPE_QUERY : IApplication.ACTION_TYPE_PROCESS;
 		}
 	}
 

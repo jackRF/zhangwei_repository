@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jack.service.MyServiceImpl;
-import com.jack.web.annotation.BusinessAction;
 import com.jack.web.annotation.Namespace;
-import com.jack.web.app.CCSApplication;
 
 @Controller
 @Namespace("common")
@@ -27,7 +25,6 @@ public class CommonController implements ApplicationContextAware {
 //	private MyServiceImpl myService;
 //	@Autowired
 //	private SupportUserServiceImpl supportUserService;
-	@BusinessAction(businessType=CCSApplication.BT_VALIDATE_FIELD)
 	@RequestMapping(value = "validateField.json")
 	@ResponseBody
 	public boolean validateField(String field, String value) {
@@ -44,14 +41,12 @@ public class CommonController implements ApplicationContextAware {
 		}
 		return false;
 	}
-	@BusinessAction(businessType=CCSApplication.BT_QUERY_USER_LIST)
 	@RequestMapping(value = "userList.htm")
 	public String userList(){
 		System.out.println("userList");
 		return "index";
 	}
 	
-	@BusinessAction(businessType=CCSApplication.BT_QUERY_USER_LIST)
 	@RequestMapping(value = "queryUserList.json")
 	@ResponseBody
 	public boolean queryUser(@RequestBody List<Long> userIds){
@@ -68,7 +63,6 @@ public class CommonController implements ApplicationContextAware {
 		System.out.println("queryUser");
 		return false;
 	}
-	@BusinessAction(businessType=CCSApplication.BT_EXPORTUSER)
 	@RequestMapping(value = "exportUser.json")
 	public void exportUser(){
 	}
