@@ -1,6 +1,7 @@
 package com.jack.comp.abstr;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +69,18 @@ public abstract class AbstractBusinessService implements IBusinessService{
 		try {
 			Method handlerMethod=handlerMethodMap.get(businessType);
 			ReflectionUtils.makeAccessible(handlerMethod);
+			Class<?>[] parameterTypes=handlerMethod.getParameterTypes();
+			int ptln=parameterTypes.length;
+			if(ptln>0){
+				Class<?> parameterClass=parameterTypes[ptln-1];
+				if(parameterClass.isArray()){
+					if(Object.class.equals(parameterClass.getComponentType())&&params.length>=ptln){
+						Object[] temp=params;
+						params=Arrays.copyOfRange(temp, 0, ptln);
+						params[ptln-1]=Arrays.copyOfRange(temp, ptln-1, temp.length);
+					}
+				}
+			}
 			return (R) handlerMethod.invoke(this, params);
 		} catch (Exception e) {
 			e.printStackTrace();

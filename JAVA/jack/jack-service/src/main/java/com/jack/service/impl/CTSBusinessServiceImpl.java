@@ -35,7 +35,12 @@ public class CTSBusinessServiceImpl extends AbstractBusinessService implements I
 		return result;
 	}
 	@Business(BT_PROCESS_USER_SAVE)
-	public Map<String,Object> processApprove(){
+	public Map<String,Object> processApprove(Integer o,Object...ids){
+		System.out.println("processApprove....");
+		System.out.println("o:"+o);
+		for(Object id:ids){
+			System.out.println("id:"+id);
+		}
 		Map<String,Object> result=new HashMap<String,Object>();
 		result.put("success", true);
 		User user=new User();
@@ -45,8 +50,8 @@ public class CTSBusinessServiceImpl extends AbstractBusinessService implements I
 		userSerice.saveUser(user);
 		System.out.println("saveUser success");
 		result.put("user", user);
-		throw new RuntimeException("事物测试");
-//		return result;
+//		throw new RuntimeException("事物测试");
+		return result;
 	}
 	
 }
