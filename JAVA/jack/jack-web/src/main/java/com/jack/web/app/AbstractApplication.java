@@ -21,7 +21,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 
 import com.jack.entity.User;
-import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 /**
  * 〈一句话功能简述〉<br> 
@@ -34,8 +33,10 @@ import com.jack.intf.business.IBusinessAction;
  * @param <A> Action类型
  * @param <B> 具体业务类型
  */
-public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
+public  abstract class AbstractApplication<BS,S,A,B> implements ApplicationContextAware{
+	
 	protected Logger logger=LoggerFactory.getLogger(getClass());
+	
 	private ApplicationContext applicationContext;
 
 	@Override
@@ -73,6 +74,18 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 		}
 		return isSuccess;
 	}
+	protected abstract IBusinessAction<S,A,B> getBusinessAction();
+	protected abstract <R> R isSupport(ICallBack<BS> callback,IBusinessAction<S,A,B> businessAction,R r);
+	protected abstract <R> R doBusiness(BS bs, IBusinessAction<S,A,B> businessAction,Object... params);
+	public <R> R doBusiness(final Object... params){
+		final IBusinessAction<S,A,B> businessAction=getBusinessAction();
+		 return isSupport(new ICallBack<BS>() {
+			@Override
+			public <R2> R2 callBack(BS bs) {
+				return doBusiness(bs,businessAction, params);
+			}
+		}, businessAction,null);
+	}
 	public <CB,R> CB doBusiness(ICallBack<R> callBack, Object... params) {
 		R result = doBusiness(params);
 		return callBack.callBack(result);
@@ -80,8 +93,6 @@ public  abstract class AbstractApplication<S,A,B> implements ApplicationContextA
 	public User getSessionUser(HttpServletRequest request){
 		return (User)request.getSession().getAttribute("user");
 	}
-	protected abstract <R> R isSupport(ICallBack<IBusiness<S,A,B>> callback,IBusinessAction<S,A,B> businessAction,R r);
-	public abstract <R> R doBusiness(Object...params);
 	/**
 	 * 当出现错误时，发送错误信息或重定向到首页
 	 * @statusCode 状态码 404，不存在的资源，403，没有权限

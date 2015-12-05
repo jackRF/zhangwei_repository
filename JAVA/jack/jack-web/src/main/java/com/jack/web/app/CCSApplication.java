@@ -16,25 +16,18 @@ import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.service.IBusinessService;
 @Component
-public class CCSApplication extends AbstractApplication<String, Integer, String>implements IApplicationConstant {
+public class CCSApplication extends AbstractApplication<IBusinessService,String, Integer, String>implements IApplicationConstant {
 	@Autowired
 	private List<IBusinessService> businessServices;
 	@Override
-	public <R> R doBusiness(final Object... params){
-		
-		 final IBusinessAction<String, Integer, String> businessAction=LOCAL_BUSINESS_ACTION.get();
-		 return isSupport(new ICallBack<IBusiness<String,Integer,String>>() {
-			@Override
-			public <B> B callBack(IBusiness<String, Integer, String> business) {
-				return doBusiness(business,businessAction, params);
-			}
-		}, businessAction,null);
+	protected IBusinessAction<String, Integer, String> getBusinessAction() {
+		return LOCAL_BUSINESS_ACTION.get();
 	}
-	private <R> R doBusiness(IBusiness<String, Integer, String> business, IBusinessAction<String, Integer, String> businessAction,
+	protected <R> R doBusiness(IBusinessService businessService, IBusinessAction<String, Integer, String> businessAction,
 			Object... params) {
 		Integer actionType=businessAction.getActionType();
 		String businessType=businessAction.getBusinessType();
-		R result=route(business,actionType, businessType, params);
+		R result=route(businessService,actionType, businessType, params);
 		Map<String,Object> info=LOCAL_BUSINESS_INFO.get();
 		if(!Boolean.TRUE.equals(IBusiness.LAST_SUPPORT_RESULT.get())){
 			reportError(403,businessAction,info);
@@ -44,9 +37,8 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		return result;
 	}
 	
-	private <R> R route(IBusiness<String, Integer, String> business, Integer actionType, String businessType,
+	private <R> R route(IBusinessService businessService, Integer actionType, String businessType,
 			Object[] params) {
-		IBusinessService businessService=(IBusinessService)business;
 		if(ACTION_TYPE_MODELANDVIEW==actionType){
 			return businessService.modelAndView(businessType, params);
 		}else if(ACTION_TYPE_QUERY==actionType){
@@ -58,18 +50,7 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		}
 		return null;
 	}
-	private void reportError(int i, IBusinessAction<String, Integer, String> businessAction, Map<String, Object> businessInfo) {
-		
-	}
-	@Override
-	public void sendError(int statusCode, HttpServletResponse response, User user,
-			IBusinessAction<String, Integer, String> businessAction) {
-		try {
-			response.sendError(statusCode);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	@Override
 	public void initLocalBusiness(HttpServletRequest request, HttpServletResponse response, User user,
 			IBusinessAction<String, Integer, String> businessAction) {
@@ -81,23 +62,16 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 		LOCAL_BUSINESS_INFO.set(businessInfo);
 		LOCAL_BUSINESS_ACTION.set(businessAction);
 	}
-
-	@Override
-	public boolean checkPermission(User user, IBusinessAction<String, Integer, String> businessAction) {
-		// TODO Auto-generated method stub
-		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
-	}
-	
 	@SuppressWarnings("unchecked")
 	@Override
-	protected <R> R isSupport(ICallBack<IBusiness<String, Integer, String>> callback,IBusinessAction<String, Integer, String> businessAction,R r) {
+	protected <R> R isSupport(ICallBack<IBusinessService> callback,IBusinessAction<String, Integer, String> businessAction,R r) {
 		boolean supportFlag = false;
-		for (IBusiness<String, Integer, String> business : businessServices) {
-			if (business.isSupport(businessAction)) {
+		for (IBusinessService businessService : businessServices) {
+			if (businessService.isSupport(businessAction)) {
 				supportFlag = true;
-				IBusiness.LAST_SUPPORT_RESULT.set(true);
+				IBusinessService.LAST_SUPPORT_RESULT.set(true);
 				if(callback!=null){
-					r=callback.callBack(business);
+					r=callback.callBack(businessService);
 				}else{
 					r=(R) Boolean.TRUE;
 				}
@@ -111,5 +85,22 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 			}
 		}
 		return r;
+	}
+	@Override
+	public boolean checkPermission(User user, IBusinessAction<String, Integer, String> businessAction) {
+		// TODO Auto-generated method stub
+		return true;//这里应该根据AM配置的用户的实际权限去检查，默认true，并不代表真的有权限操作，只是让它接着往下执行，在观察者模式地方会返回空或不处理
+	}
+	private void reportError(int i, IBusinessAction<String, Integer, String> businessAction, Map<String, Object> businessInfo) {
+		
+	}
+	@Override
+	public void sendError(int statusCode, HttpServletResponse response, User user,
+			IBusinessAction<String, Integer, String> businessAction) {
+		try {
+			response.sendError(statusCode);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
