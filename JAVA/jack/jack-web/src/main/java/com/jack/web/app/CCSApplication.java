@@ -47,17 +47,16 @@ public class CCSApplication extends AbstractApplication<String, Integer, String>
 	private <R> R route(IBusiness<String, Integer, String> business, Integer actionType, String businessType,
 			Object[] params) {
 		IBusinessService businessService=(IBusinessService)business;
-		R r=null;
 		if(ACTION_TYPE_MODELANDVIEW==actionType){
-			r=businessService.modelAndView(businessType, params);
+			return businessService.modelAndView(businessType, params);
 		}else if(ACTION_TYPE_QUERY==actionType){
-			r=businessService.query(businessType, params);
+			return businessService.query(businessType, params);
 		}else if(ACTION_TYPE_PROCESS==actionType){
-			r=businessService.process(businessType, params);
+			return businessService.process(businessType, params);
 		}else if(ACTION_TYPE_EXPORT==actionType){
-			r=businessService.export(businessType, params);
+			return businessService.export(businessType, params);
 		}
-		return r;
+		return null;
 	}
 	private void reportError(int i, IBusinessAction<String, Integer, String> businessAction, Map<String, Object> businessInfo) {
 		

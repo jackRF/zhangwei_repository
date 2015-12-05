@@ -18,7 +18,20 @@ package com.jack.cts.intf;
  * @since [产品/模块版本] （可选）
  */
 public interface ICTSBusinessConstant {
+	/**
+	 * 信审业务命名空间
+	 */
 	String NS_CTS="CTS";
+	/**
+	 * 
+	 */
 	String BT_MV_LOANAPPLY_LIST="MV_LOANAPPLY_LIST";
+	/**
+	 * 信审借款详细
+	 */
 	String BT_MV_LOANAPPLY_DETAIL="MV_LOANAPPLY_DETAIL";
+	/**
+	 * 信审借款列表查询
+	 */
+	String BT_QUERY_LOANAPPLY_LIST="QUERY_LOANAPPLY_LIST";
 }

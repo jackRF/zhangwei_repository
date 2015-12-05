@@ -13,6 +13,8 @@ package com.jack.web.app;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -33,7 +35,7 @@ import com.jack.intf.business.IBusinessAction;
  * @param <B> 具体业务类型
  */
 public  abstract class AbstractApplication<S,A,B> implements ApplicationContextAware{
-
+	protected Logger logger=LoggerFactory.getLogger(getClass());
 	private ApplicationContext applicationContext;
 
 	@Override

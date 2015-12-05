@@ -1,35 +1,80 @@
-/*
- * Copyright (C), 2014-2015, 达信财富投资管理（上海）有限公司
- * FileName: AbstractBusinessSupport.java
- * Author:   zhangwei
- * Date:     2015年10月16日 上午11:57:29
- * Description: //模块目的、功能描述      
- * History: //修改记录
- * <author>      <time>      <version>    <desc>
- * 修改人姓名             修改时间            版本号                  描述
- */
 package com.jack.comp.abstr;
 
-import org.apache.commons.lang3.ArrayUtils;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
+
+import com.jack.annotation.Business;
+import com.jack.annotation.NameSpace;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.service.IBusinessService;
-/**
- * 〈一句话功能简述〉<br> 
- * 〈功能详细描述〉
- *
- * @author zhangwei
- * @see [相关类/方法]（可选）
- * @since [产品/模块版本] （可选）
- * @param <S> 业务命名空间
- * @param <A> Action类型
- * @param <B> 具体业务类型
- */
+
 public abstract class AbstractBusinessService implements IBusinessService{
-	public boolean isSupport(IBusinessAction<String,Integer,String> businessAction,String nameSpace,String...businessTypes){
-		if(nameSpace.equals(businessAction.getNameSpace())){
-			return ArrayUtils.contains(businessTypes, businessAction.getBusinessType());
+	private String nameSpace;
+	private Map<String,Method> handlerMethodMap=new HashMap<String,Method>();
+	public AbstractBusinessService(){
+		Class<?> c=getClass();
+		NameSpace ns=c.getAnnotation(NameSpace.class);
+		if(ns!=null){
+			nameSpace=ns.value();
+		}else{
+			nameSpace=NS_DEFAULT;
+		}
+		Method[] methods=c.getDeclaredMethods();
+		if(methods!=null&&methods.length>0){
+			for(Method method:methods){
+				Business business=method.getAnnotation(Business.class);
+				if(business!=null){
+					String[] values=business.value();
+					for(String value:values){
+						handlerMethodMap.put(value, method);
+					}
+					
+				}
+			}
+		}
+	}
+	@Override
+	public boolean isSupport(IBusinessAction<String, Integer, String> supportKey) {
+		if(supportKey.getNameSpace().equals(nameSpace)){
+			return handlerMethodMap.get(supportKey.getBusinessType())!=null;
 		}
 		return false;
+	}
+	@Override
+	public final <R> R modelAndView(String businessType, Object... params) {
+		return invoke(businessType,params);
+	}
+
+	@Override
+	public final <R> R query(String businessType, Object... params) {
+		return invoke(businessType,params);
+	}
+	@Transactional
+	@Override
+	public final <R> R process(String businessType, Object... params) {
+		return invoke(businessType,params);
+	}
+
+	@Override
+	public final <R> R export(String businessType, Object... params) {
+		return invoke(businessType,params);
+	}	
+	@SuppressWarnings("unchecked")
+	private <R> R invoke(String businessType, Object...params){
+		try {
+			Method handlerMethod=handlerMethodMap.get(businessType);
+			ReflectionUtils.makeAccessible(handlerMethod);
+			return (R) handlerMethod.invoke(this, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
+	protected String getBusinessType(){
+		return LOCAL_BUSINESS_ACTION.get().getBusinessType();
 	}
 }
