@@ -2,29 +2,28 @@ package com.jack.web.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import com.jack.web.app.IApplication;
 
-import com.jack.intf.business.IBusinessAction;
-
-public abstract class AbstractBusinessInterceptor<S, A, B> implements HandlerInterceptor {
+public abstract class AbstractBusinessInterceptor<BA> implements HandlerInterceptor {
+	@Autowired
+	private IApplication<BA> application;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if (handler != null && handler instanceof HandlerMethod) {
 			HandlerMethod hm = (HandlerMethod) handler;
-			IBusinessAction<S, A, B> businessAction = getBusinessAction(hm);
+			BA businessAction = getBusinessAction(hm);
 			if (businessAction != null) {
-				return isSupport(request,response,businessAction);
+				return application.isSupport(request,response,businessAction);
 			}
 		}
 		return true;
 	}
-	
-	protected abstract boolean isSupport(HttpServletRequest request, HttpServletResponse response,IBusinessAction<S, A, B> businessAction);
-	
-	protected abstract IBusinessAction<S, A, B> getBusinessAction(HandlerMethod hm);
+	protected abstract BA getBusinessAction(HandlerMethod hm);
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
