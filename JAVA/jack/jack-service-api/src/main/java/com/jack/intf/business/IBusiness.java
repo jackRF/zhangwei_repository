@@ -10,7 +10,6 @@
  */
 package com.jack.intf.business;
 
-import java.util.Map;
 import com.jack.intf.observer.ISupport;
 
 /**
