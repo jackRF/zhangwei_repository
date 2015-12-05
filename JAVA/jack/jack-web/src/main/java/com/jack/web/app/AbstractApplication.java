@@ -55,6 +55,11 @@ public  abstract class AbstractApplication<BA> implements IApplication<BA>,Appli
 	public void publishEvent(ApplicationEvent event) {
 		applicationContext.publishEvent(event);
 	}
+	
+	public User getSessionUser(HttpServletRequest request){
+		return (User)request.getSession().getAttribute("user");
+	}
+	
 	@Override
 	public boolean isSupport(HttpServletRequest request,HttpServletResponse response,BA businessAction) {
 		User user =getSessionUser(request);
@@ -72,10 +77,7 @@ public  abstract class AbstractApplication<BA> implements IApplication<BA>,Appli
 			sendError(sc,response, user, businessAction);
 		}
 		return isSuccess;
-	}
-	public User getSessionUser(HttpServletRequest request){
-		return (User)request.getSession().getAttribute("user");
-	}
+	}	
 	protected abstract <R> R isSupport(BA businessAction);
 	/**
 	 * 检查用户权限
