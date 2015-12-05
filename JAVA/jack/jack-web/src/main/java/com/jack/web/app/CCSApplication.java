@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jack.entity.User;
-import com.jack.intf.business.IBusiness;
 import com.jack.intf.business.IBusinessAction;
 import com.jack.service.IBusinessService;
 @Component
@@ -40,7 +39,7 @@ public class CCSApplication extends AbstractApplication<IBusinessAction<String, 
 		String businessType=businessAction.getBusinessType();
 		R result=route(businessService,actionType, businessType, params);
 		Map<String,Object> info=LOCAL_BUSINESS_INFO.get();
-		if(!Boolean.TRUE.equals(IBusiness.LAST_SUPPORT_RESULT.get())){
+		if(!Boolean.TRUE.equals(IBusinessService.LAST_SUPPORT_RESULT.get())){
 			reportError(403,businessAction,info);
 		}else if(info.get("errorCode")!=null){
 			reportError((Integer)info.get("errorCode"),businessAction,info);
@@ -110,7 +109,7 @@ public class CCSApplication extends AbstractApplication<IBusinessAction<String, 
 			}
 		}
 		if(!supportFlag){
-			IBusiness.LAST_SUPPORT_RESULT.set(false);
+			IBusinessService.LAST_SUPPORT_RESULT.set(false);
 			if(callback==null){
 				r=(R) Boolean.FALSE;
 			}

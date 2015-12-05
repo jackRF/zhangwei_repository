@@ -2,9 +2,10 @@ package com.jack.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jack.intf.business.IBusiness;
+import com.jack.intf.business.IBusinessAction;
+import com.jack.intf.observer.ISupport;
 
-public interface IBusinessService extends IBusinessServiceConstant,IBusiness<String,Integer,String>{
+public interface IBusinessService extends IBusinessServiceConstant,ISupport<IBusinessAction<String,Integer,String>>{
 	/**
      * 功能描述: <br>
      * 〈功能详细描述〉
