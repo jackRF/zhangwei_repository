@@ -90,7 +90,7 @@ public class JackApplication extends AbstractApplication<IBusinessAction<String,
 		}
 	}
 	@Override
-	protected <R> R isSupport(IBusinessAction<String, Integer, String> businessAction) {
+	protected boolean isSupport(IBusinessAction<String, Integer, String> businessAction) {
 		return isSupport(null,businessAction,null);
 	}
 	@SuppressWarnings("unchecked")

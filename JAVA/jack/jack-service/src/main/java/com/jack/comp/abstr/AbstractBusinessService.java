@@ -73,11 +73,14 @@ public abstract class AbstractBusinessService implements IBusinessService{
 			int ptln=parameterTypes.length;
 			if(ptln>0){
 				Class<?> parameterClass=parameterTypes[ptln-1];
-				if(parameterClass.isArray()){
-					if(Object.class.equals(parameterClass.getComponentType())&&params.length>=ptln){
+				if(parameterClass.isArray()&&Object.class.equals(parameterClass.getComponentType())){
+					if(params.length>=ptln){
 						Object[] temp=params;
 						params=Arrays.copyOfRange(temp, 0, ptln);
 						params[ptln-1]=Arrays.copyOfRange(temp, ptln-1, temp.length);
+					}else if(params.length==ptln-1){
+						params=Arrays.copyOf(params, ptln);
+						params[ptln-1]=new Object[0];
 					}
 				}
 			}

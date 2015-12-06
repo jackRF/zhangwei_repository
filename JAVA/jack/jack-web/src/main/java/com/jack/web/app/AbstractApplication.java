@@ -78,7 +78,7 @@ public  abstract class AbstractApplication<BA> implements IApplication<BA>,Appli
 		}
 		return isSuccess;
 	}	
-	protected abstract <R> R isSupport(BA businessAction);
+	protected abstract boolean isSupport(BA businessAction);
 	/**
 	 * 检查用户权限
 	 * @param user 当前用户
